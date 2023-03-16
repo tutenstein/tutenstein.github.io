@@ -1096,8 +1096,6 @@ section {
 .divider {
   color: #fff;
   text-align: center;
-  width: 1000px;
-  height: 500px;
   font-size: 15px;
 }
 
@@ -1117,16 +1115,55 @@ section {
 
 .divider .divider-one {
   background: #531f04;
-  width: 288px;
   height: 450px;
 }
 .divider .divider-two {
   background: black;
-  width: 288px;
   height: 450px;
 }
 .divider .divider-three {
   background: #774e02;
-  width: 288px;
   height: 450px;
+}
+
+@media only screen and (max-width: 500) {
+  .divider {
+    color: #fff;
+    text-align: center;
+    font-size: 15px;
+  }
+  
+  .divider h5 {
+    padding-bottom: 10px;
+  }
+  .divider .divider-wrapper {
+    padding: 40px 20px 40px 20px;
+    position: relative;
+    bottom: 20px;
+    transition: all 0.4s ease-in;
+  }
+  .divider .divider-wrapper:hover {
+    bottom: 60px;
+    cursor: pointer;
+  }
+  
+  .divider .divider-one {
+    background: #531f04;
+    width: 288px;
+    height: 450px;
+    position: relative;
+  }
+  .divider .divider-two {
+    background: black;
+    width: 288px;
+    height: 450px;
+    position: relative;
+  }
+  .divider .divider-three {
+    background: #774e02;
+    width: 288px;
+    height: 450px;
+    position: relative;
+  }
+
 }
