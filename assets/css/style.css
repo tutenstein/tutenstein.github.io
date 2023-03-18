@@ -1126,6 +1126,41 @@ section {
   height: 450px;
 }
 
+.img-with-text p {
+  text-align: justify;
+  font-size: 11px;
+  padding-bottom: 10px;
+}
+
+.img-with-text img {
+  display: block;
+  margin: 0 auto;
+  
+}
+.d-flex h2{
+  font-weight: bold;
+  
+}
+.figure-2{
+  display: inline-flex;
+  width: min-content;
+  height: min-content;
+}
+.figure-3{
+  display: inline-flex;
+  width: min-content;
+  height: min-content;
+}
+.figure-8{
+  display: inline-flex;
+  width: min-content;
+  height: min-content;
+  object-position: center;
+
+}
+
+
+
 @media only screen and (max-width: 500) {
   .divider {
     color: #fff;
