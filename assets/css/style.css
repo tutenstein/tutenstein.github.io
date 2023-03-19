@@ -1151,14 +1151,6 @@ section {
   width: min-content;
   height: min-content;
 }
-.figure-8{
-  display: inline-flex;
-  width: min-content;
-  height: min-content;
-  object-position: center;
-
-}
-
 
 
 @media only screen and (max-width: 500) {
