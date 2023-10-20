@@ -81,5 +81,21 @@
         <span>Website Builder Software</span>
       </a>. 
     </section>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttonNo = document.getElementById("hayir-button");
+    
+        buttonNo.addEventListener("mouseenter", function () {
+            // Calculate random positions for the button
+            const randomX = Math.random() * (window.innerWidth - buttonNo.clientWidth);
+            const randomY = Math.random() * (window.innerHeight - buttonNo.clientHeight);
+    
+            // Set the new position
+            buttonNo.style.position = "absolute";
+            buttonNo.style.left = randomX + "px";
+            buttonNo.style.top = randomY + "px";
+        });
+    });
+    </script>
   
 </body></html>
