@@ -85,16 +85,18 @@
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         const buttonNo = document.getElementById("hayir-button");
+        const section1 = document.getElementById("carousel_b8aa");
     
         buttonNo.addEventListener("mouseenter", function () {
-            // Calculate random positions for the button
-            const randomX = Math.random() * (window.innerWidth - buttonNo.clientWidth);
-            const randomY = Math.random() * (window.innerHeight - buttonNo.clientHeight);
+            const sectionRect = section1.getBoundingClientRect();
+            // Calculate random positions within the bounds of the section
+            const randomX = Math.random() * (sectionRect.width - buttonNo.clientWidth);
+            const randomY = Math.random() * (sectionRect.height - buttonNo.clientHeight);
     
             // Set the new position
             buttonNo.style.position = "absolute";
-            buttonNo.style.left = randomX + "px";
-            buttonNo.style.top = randomY + "px";
+            buttonNo.style.left = sectionRect.left + randomX + "px";
+            buttonNo.style.top = sectionRect.top + randomY + "px";
         });
     });
     </script>
