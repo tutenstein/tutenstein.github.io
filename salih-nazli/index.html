@@ -90,8 +90,8 @@
         buttonNo.addEventListener("mouseenter", function () {
             const sectionRect = section1.getBoundingClientRect();
             // Calculate random positions within the bounds of the section
-            const randomX = Math.random() * (sectionRect.width - buttonNo.clientWidth);
-            const randomY = Math.random() * (sectionRect.height - buttonNo.clientHeight);
+            const randomX = Math.random(50) * (sectionRect.width - buttonNo.clientWidth)/5;
+            const randomY = Math.random(50) * (sectionRect.height - buttonNo.clientHeight)/5;
     
             // Set the new position
             buttonNo.style.position = "absolute";
