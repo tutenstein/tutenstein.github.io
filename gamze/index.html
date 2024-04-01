@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Nisan!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #3498db; /* Mavi arka plan rengi */
+        }
+
+        .container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content {
+            position: relative;
+            animation: growAndShrink 5s infinite alternate;
+        }
+
+        .text-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-align: center;
+        }
+
+        .text {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .image-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes growAndShrink {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="text-container">
+                <h1 class="text">1 Nisan!!!</h1>
+            </div>
+            <!-- Arka plan resmi ekleme -->
+            <div class="image-container">
+                <!-- İsteğe bağlı olarak bir arka plan resmi ekleyebilirsiniz, ancak mavi arka plan için gerekli değil -->
+                <!-- <img src="arka_plan_resmi.jpg" alt="Arka Plan"> -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
