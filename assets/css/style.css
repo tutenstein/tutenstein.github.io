@@ -1103,6 +1103,7 @@ section {
   padding-bottom: 10px;
 }
 .divider .divider-wrapper {
+  margin-bottom: 20px;
   padding: 40px 20px 40px 20px;
   position: relative;
   bottom: 20px;
@@ -1125,7 +1126,19 @@ section {
   background: #774e02;
   height: 450px;
 }
+.divider .divider-four {
+  background: #2a4d14; /* A deep green color */
+  height: 450px;
+}
+.divider .divider-five {
+  background: #3b3b6d; /* A muted blue color */
+  height: 450px;
+}
 
+.divider .divider-six {
+  background: #6d2a3b; /* A rich burgundy color */
+  height: 450px;
+}
 .img-with-text p {
   text-align: justify;
   font-size: 11px;
