@@ -453,7 +453,37 @@ section {
   transition: 0.9s;
   background-color: #149ddd;
 }
+.skills-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
+.skills-list li {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #050d18;
+  font-family: "Poppins", sans-serif;
+  background-color: #f0f4f8; /* Light background color */
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.skills-list li:hover {
+  background-color: #dce8f8; /* Change background on hover */
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+}
+
+.skills .skills-title{
+  font-size: 26px;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #050d18;
+}
 /*--------------------------------------------------------------
 # Resume
 --------------------------------------------------------------*/
@@ -1169,6 +1199,20 @@ section {
 .favorite .row .col-lg-6{
   height: 600px;
 }*/ 
+.responsive-gif {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.responsive-img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
 
 @media only screen and (max-width: 500) {
   .divider {
