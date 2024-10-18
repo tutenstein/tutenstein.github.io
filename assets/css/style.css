@@ -453,13 +453,13 @@ section {
   transition: 0.9s;
   background-color: #149ddd;
 }
-.skills-list {
+.skills .skills-list {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.skills-list li {
+.skills .skills-list li {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 10px;
@@ -471,7 +471,7 @@ section {
   transition: background-color 0.3s, transform 0.3s;
 }
 
-.skills-list li:hover {
+.skills .skills-list li:hover {
   background-color: #dce8f8; /* Change background on hover */
   transform: translateY(-5px); /* Slight lift on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
