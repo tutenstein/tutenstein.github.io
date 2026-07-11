@@ -7,37 +7,94 @@
   <style>
     body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #222; }
     h1 { font-size: 1.6em; }
-    h2 { font-size: 1.2em; margin-top: 1.6em; }
+    h2 { font-size: 1.2em; margin-top: 1.8em; }
+    p { margin: 0.6em 0; }
+    a { color: #F59E0B; }
+
+    .effective-date { color: #666; font-size: 0.9em; margin-top: -4px; }
+
+    .summary-box {
+      padding: 14px 16px;
+      background: #f6f6f6;
+      border-radius: 8px;
+      margin: 18px 0;
+    }
+    .summary-box h2 { margin-top: 0; font-size: 1em; }
+    .summary-box ul { margin: 6px 0 0; padding-left: 20px; }
+    .summary-box li { margin: 4px 0; }
+
+    section { border: 1px solid #e2e2e2; border-radius: 8px; padding: 4px 16px 14px; margin: 8px 0; }
+    section h2 { font-size: 1.05em; }
+
+    .contact-line { padding: 12px 16px; background: #f6f6f6; border-radius: 8px; }
+    footer { margin-top: 40px; font-size: 0.85em; color: #777; }
+
+    @media (prefers-color-scheme: dark) {
+      body { color: #eee; background: #121212; }
+      a { color: #FBBF24; }
+      .effective-date { color: #999; }
+      .summary-box, .contact-line { background: #1e1e1e; }
+      section { border-color: #333; }
+      footer { color: #999; }
+    }
   </style>
 </head>
 <body>
   <h1>Privacy Policy — World Museums</h1>
-  <p><em>Effective date: July 6, 2026</em></p>
+  <p class="effective-date">Effective date: July 6, 2026</p>
 
   <p>World Museums ("the app") helps you discover museums with free admission around the world. This policy explains what information the app uses and how it is handled.</p>
 
-  <h2>Information we collect</h2>
-  <p>The app does not require an account and does not collect, store, or sell personal information.</p>
+  <div class="summary-box">
+    <h2>Quick summary</h2>
+    <ul>
+      <li>No account required, no personal information collected.</li>
+      <li>Your location, if you share it, stays on your device only.</li>
+      <li>No ads, no analytics, no tracking SDKs.</li>
+      <li>Favorites, trips and downloaded data are stored locally and removed when you delete the app.</li>
+    </ul>
+  </div>
 
-  <h2>Location</h2>
-  <p>If you tap the "my location" button, the app asks for permission to access your device's location. Your location is used <strong>only on your device</strong> to center the map and show museums near you. It is never transmitted to our servers or shared with third parties. You can use the entire app without granting location permission.</p>
+  <section>
+    <h2>Information we collect</h2>
+    <p>The app does not require an account and does not collect, store, or sell personal information.</p>
+  </section>
 
-  <h2>Museum data and network use</h2>
-  <p>Museum information (names, addresses, opening hours, images) is delivered from Google Firebase (Cloud Firestore). When the app fetches this data, standard technical information (such as your IP address) is processed by Google as part of operating the service. See <a href="https://firebase.google.com/support/privacy">Firebase Privacy and Security</a> for details. Map tiles are provided by <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>; when tiles are loaded, your IP address is visible to the OpenStreetMap tile servers as with any web request.</p>
+  <section>
+    <h2>Location</h2>
+    <p>If you tap the "my location" button, the app asks for permission to access your device's location. Your location is used <strong>only on your device</strong> to center the map and show museums near you. It is never transmitted to our servers or shared with third parties. You can use the entire app without granting location permission.</p>
+  </section>
 
-  <h2>Data stored on your device</h2>
-  <p>Your favorites, trips, downloaded countries, and cached museum data are stored locally on your device only. Deleting the app removes them.</p>
+  <section>
+    <h2>Museum data and network use</h2>
+    <p>Museum information (names, addresses, opening hours, images) is delivered from Google Firebase (Cloud Firestore). When the app fetches this data, standard technical information (such as your IP address) is processed by Google as part of operating the service. See <a href="https://firebase.google.com/support/privacy">Firebase Privacy and Security</a> for details. Map tiles are provided by <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>; when tiles are loaded, your IP address is visible to the OpenStreetMap tile servers as with any web request.</p>
+  </section>
 
-  <h2>Analytics and advertising</h2>
-  <p>The app contains no advertising and no third-party analytics or tracking SDKs.</p>
+  <section>
+    <h2>Data stored on your device</h2>
+    <p>Your favorites, trips, downloaded countries, and cached museum data are stored locally on your device only. Deleting the app removes them.</p>
+  </section>
 
-  <h2>Children</h2>
-  <p>The app does not knowingly collect any personal information from anyone, including children.</p>
+  <section>
+    <h2>Analytics and advertising</h2>
+    <p>The app contains no advertising and no third-party analytics or tracking SDKs.</p>
+  </section>
 
-  <h2>Changes</h2>
-  <p>If this policy changes, the updated version will be published at this address with a new effective date.</p>
+  <section>
+    <h2>Children</h2>
+    <p>The app does not knowingly collect any personal information from anyone, including children.</p>
+  </section>
+
+  <section>
+    <h2>Changes</h2>
+    <p>If this policy changes, the updated version will be published at this address with a new effective date.</p>
+  </section>
 
   <h2>Contact</h2>
-  <p>If you have questions about this policy, contact: <strong>slhmtnn06@gmail.com</strong></p>
+  <p class="contact-line">Questions about this policy? Contact us at <strong>slhmtnn06@gmail.com</strong>, or visit our <a href="support.html">Support page</a>.</p>
+
+  <footer>
+    World Museums &middot; <a href="support.html">Support</a>
+  </footer>
 </body>
 </html>
