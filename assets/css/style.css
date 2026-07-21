@@ -487,6 +487,42 @@ section {
 /*--------------------------------------------------------------
 # Resume
 --------------------------------------------------------------*/
+.resume .section-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.resume .section-title h2 {
+  margin-bottom: 0;
+  padding-bottom: 20px;
+}
+
+.resume .cv-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 10px 18px;
+  background: #149ddd;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: background 0.25s ease;
+}
+
+.resume .cv-download:hover {
+  background: #0d7ba8;
+  color: #fff;
+}
+
+.resume .cv-download i {
+  font-size: 18px;
+}
+
 .resume .resume-title {
   font-size: 26px;
   font-weight: 700;
@@ -1132,42 +1168,183 @@ section {
 .divider h5 {
   padding-bottom: 10px;
 }
-.divider .divider-wrapper {
+.divider .divider-wrapper,
+.portfolio-item .divider-wrapper {
   margin-bottom: 20px;
   padding: 40px 20px 40px 20px;
   position: relative;
-  bottom: 20px;
+  bottom: 0;
   transition: all 0.4s ease-in;
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+  height: 100%;
+  min-height: 320px;
 }
-.divider .divider-wrapper:hover {
-  bottom: 60px;
+.divider .divider-wrapper:hover,
+.portfolio-item .divider-wrapper:hover {
+  transform: translateY(-12px);
   cursor: pointer;
 }
 
-.divider .divider-one {
-  background: #531f04;
-  height: 450px;
-}
-.divider .divider-two {
-  background: black;
-  height: 450px;
-}
-.divider .divider-three {
-  background: #774e02;
-  height: 450px;
-}
-.divider .divider-four {
-  background: #2a4d14; /* A deep green color */
-  height: 450px;
-}
-.divider .divider-five {
-  background: #3b3b6d; /* A muted blue color */
-  height: 450px;
+.portfolio-item .divider-wrapper h5 {
+  padding-bottom: 10px;
+  color: #fff;
 }
 
-.divider .divider-six {
-  background: #6d2a3b; /* A rich burgundy color */
-  height: 450px;
+.portfolio-item .divider-wrapper a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.divider .divider-one,
+.portfolio-item .divider-one {
+  background: #531f04;
+}
+.divider .divider-two,
+.portfolio-item .divider-two {
+  background: black;
+}
+.divider .divider-three,
+.portfolio-item .divider-three {
+  background: #774e02;
+}
+.divider .divider-four,
+.portfolio-item .divider-four {
+  background: #2a4d14;
+}
+.divider .divider-five,
+.portfolio-item .divider-five {
+  background: #3b3b6d;
+}
+
+.divider .divider-six,
+.portfolio-item .divider-six {
+  background: #6d2a3b;
+}
+
+/* Portfolio work cards (websites & apps) */
+.work-card {
+  background: #fff;
+  border: 1px solid #e8ecef;
+  margin-bottom: 30px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.work-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(5, 13, 24, 0.1);
+}
+
+.work-card-media {
+  display: block;
+  background: #f4f6f8;
+  overflow: hidden;
+  border-bottom: 1px solid #e8ecef;
+}
+
+.work-card-media img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.work-card:hover .work-card-media img {
+  transform: scale(1.03);
+}
+
+.work-card-media-phone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 12px 8px;
+  background: linear-gradient(180deg, #eef2f5 0%, #f8fafb 100%);
+  min-height: 220px;
+}
+
+.work-card-media-phone img {
+  width: auto;
+  max-width: 46%;
+  height: 220px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.work-card-body {
+  padding: 18px 20px 22px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.work-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #149ddd;
+  margin-bottom: 8px;
+}
+
+.work-card-body h5 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #173b6c;
+}
+
+.work-card-body h5 a {
+  color: inherit;
+}
+
+.work-card-body h5 a:hover {
+  color: #149ddd;
+}
+
+.work-card-body p {
+  font-size: 14px;
+  color: #5a6a7a;
+  margin-bottom: 14px;
+  flex: 1;
+}
+
+.work-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: #149ddd;
+}
+
+.work-link:hover {
+  color: #0d7ba8;
+}
+
+.work-store-links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.work-store-links a {
+  font-size: 14px;
+  font-weight: 600;
+  color: #149ddd;
+}
+
+.work-store-links a:hover {
+  color: #0d7ba8;
+}
+
+.portfolio .portfolio-item {
+  margin-bottom: 20px;
 }
 .img-with-text p {
   text-align: justify;
@@ -1214,44 +1391,13 @@ section {
   margin: 0 auto;
 }
 
-@media only screen and (max-width: 500) {
-  .divider {
-    color: #fff;
-    text-align: center;
-    font-size: 15px;
-  }
-  
-  .divider h5 {
-    padding-bottom: 10px;
-  }
-  .divider .divider-wrapper {
-    padding: 40px 20px 40px 20px;
-    position: relative;
-    bottom: 20px;
-    transition: all 0.4s ease-in;
-  }
-  .divider .divider-wrapper:hover {
-    bottom: 60px;
-    cursor: pointer;
-  }
-  
-  .divider .divider-one {
-    background: #531f04;
-    width: 288px;
-    height: 450px;
-    position: relative;
-  }
-  .divider .divider-two {
-    background: black;
-    width: 288px;
-    height: 450px;
-    position: relative;
-  }
-  .divider .divider-three {
-    background: #774e02;
-    width: 288px;
-    height: 450px;
-    position: relative;
+@media only screen and (max-width: 500px) {
+  .portfolio-item .divider-wrapper {
+    min-height: 280px;
   }
 
+  .work-card-media-phone img {
+    max-width: 42%;
+    height: 200px;
+  }
 }
