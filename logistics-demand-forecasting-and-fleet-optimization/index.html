@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Recursive Gradient-Boosted Demand Forecasting and Mixed-Fleet Cost Optimization for a Parcel Line-Haul Network</title>
+
+  <meta property="og:locale" content="en-US">
+  <meta property="og:site_name" content="Salih Enes Metin">
+  <meta property="og:title" content="Demand Forecasting and Mixed-Fleet Cost Optimization for a Parcel Line-Haul Network">
+
+  <link rel="canonical" href="https://tutenstein.github.io/logistics-demand-forecasting-and-fleet-optimization/">
+  <meta property="og:url" content="https://tutenstein.github.io/logistics-demand-forecasting-and-fleet-optimization/">
+
+  <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Person",
+        "name": "Salih Enes Metin",
+        "url": "https://tutenstein.github.io",
+        "sameAs": null
+      }
+  </script>
+
+  <link href="https://tutenstein.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="Salih Enes Metin feed">
+  <meta content="A LightGBM demand forecasting model and a mixed-integer fleet optimizer for a Turkish parcel line-haul network of 18 transfer centres: 16.7% hold-out WMAPE and a weekly vehicle plan 21.5% below the best single-class alternative." name="description">
+  <meta content="demand forecasting, LightGBM, Optuna, mixed-integer programming, fleet optimization, logistics, line-haul, WMAPE" name="keywords">
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" type="image/x-icon" href="../assets/img/1679219322.ico">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .paper-body p { text-align: justify; margin-bottom: 14px; }
+    .paper-abstract {
+      background: #f7f8f9;
+      border-left: 3px solid #18d26e;
+      padding: 18px 22px;
+      margin-bottom: 28px;
+      font-size: 15px;
+    }
+    .paper-abstract p { margin-bottom: 0; }
+    .paper-body h4 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #173b6c;
+      margin-top: 34px;
+      margin-bottom: 12px;
+    }
+    .paper-body h5 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #173b6c;
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+    .paper-figure { margin: 26px 0; }
+    .paper-figure img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #eceff1;
+      border-radius: 4px;
+    }
+    .paper-figure figcaption,
+    .paper-table-caption {
+      font-size: 13.5px;
+      color: #5a6570;
+      margin-top: 8px;
+      line-height: 1.55;
+    }
+    .paper-table-wrap { overflow-x: auto; margin: 22px 0 6px; }
+    .paper-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .paper-table th,
+    .paper-table td {
+      padding: 7px 10px;
+      border-bottom: 1px solid #eceff1;
+      text-align: left;
+      vertical-align: top;
+    }
+    .paper-table thead th {
+      border-bottom: 2px solid #173b6c;
+      color: #173b6c;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .paper-table td.num, .paper-table th.num { text-align: right; white-space: nowrap; }
+    .paper-table tbody tr.highlight td { background: #f2f9f5; font-weight: 600; }
+    .paper-math {
+      background: #f7f8f9;
+      border-radius: 4px;
+      padding: 16px 20px;
+      margin: 18px 0;
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 16px;
+      line-height: 2;
+      overflow-x: auto;
+    }
+    .paper-math .constraint-label { float: right; color: #8a949c; font-size: 13px; }
+    .paper-refs { font-size: 13.5px; color: #45505b; }
+    .paper-refs li { margin-bottom: 7px; }
+    .paper-lead { font-weight: 600; color: #173b6c; }
+    .paper-meta-list li { margin-bottom: 7px; }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="../assets/img/salih-enes.jpg" alt="" class="img-fluid rounded-circle">
+        <h1 class="text-light"><a href="../">Salih Enes Metin</a></h1>
+        <div class="social-links mt-3 text-center">
+          <a href="https://www.linkedin.com/in/salih-enes-metin/" target="_blank" rel="noopener noreferrer" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/tutenstein" target="_blank" rel="noopener noreferrer" class="github"><i class="bx bxl-github"></i></a>
+          <a href="https://medium.com/@salih.metin" target="_blank" rel="noopener noreferrer" class="medium"><i class="bx bxl-medium"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="../" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="../#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>CV</span></a></li>
+          <li><a href="../#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Projects</span></a></li>
+          <li><a href="../#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Demand Forecasting and Mixed-Fleet Cost Optimization</h2>
+          <ol>
+            <li><a href="../">Home</a></li>
+            <li>Project Details</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="section-title paper-body">
+
+              <h3 style="font-size:24px;font-weight:700;color:#173b6c;line-height:1.4;margin-bottom:6px;">
+                Recursive Gradient-Boosted Demand Forecasting and Mixed-Fleet Cost Optimization for a Parcel Line-Haul Network
+              </h3>
+              <p style="color:#5a6570;font-size:14px;margin-bottom:22px;">Salih Enes Metin &nbsp;&bull;&nbsp; MSc Data Science, Gazi University &nbsp;&bull;&nbsp; 2026</p>
+
+              <div class="paper-abstract">
+                <p><strong>Abstract.</strong> Parcel carriers must commit line-haul capacity days before the freight that will fill it is known. This paper reports an end-to-end system that forecasts inter-hub parcel volume for a seven-day horizon and converts those forecasts into a least-cost vehicle plan over a mixed fleet of contracted and spot vehicles. The data cover a Turkish line-haul network of 18 transfer centres, 89 active lanes and 130 days of daily volume measured in <em>desi</em> (a Turkish dimensional-weight unit). Demand is modelled on a complete 306&times;129 lane-day panel in which unobserved lane-days are treated as structural zeros, giving a 72.7&nbsp;% zero-inflated target. A LightGBM regressor with a Tweedie objective, tuned by 500 Optuna trials against a rolling three-fold backtest, reaches a hold-out WMAPE of 16.7&nbsp;% and R&sup2;&nbsp;=&nbsp;0.949 on 2,142 lane-days, improving on the best naive benchmark by 44.8&nbsp;% and on the same learner with default hyperparameters by 37.4&nbsp;%. Model choice is made by a blended score that combines hold-out and rolling-backtest error, which demotes benchmarks that happen to suit the final week by as many as five places. Forecasts are generated recursively over an eight-step horizon that bridges a corrupted final observation day. The resulting 623 lane-day volumes are allocated to four vehicle classes by a mixed-integer program that first exhausts the fixed contracted fleet and then minimises spot cost subject to a 10&nbsp;% minimum-fill rule, producing a plan of 707 vehicle-days at 10.25&nbsp;M&nbsp;TL &mdash; 21.5&nbsp;% below the cheapest single-class reference plan and 3.7&nbsp;% below the same optimiser run without the contracted fleet. Because both objective and constraints separate by lane-day, the program decomposes into 589 independent integer covering problems and solves in 1.2&nbsp;s. We report the full comparison against fifteen alternative forecasters, an anatomy of the cost structure, and the failure modes that remain &mdash; most notably a &minus;7.3&nbsp;% volume bias that a symmetric loss function has no reason to correct.</p>
+              </div>
+
+              <h4>1. Introduction</h4>
+
+              <p>A line-haul network moves parcels between transfer centres on fixed lanes. Every night, each lane must be assigned enough vehicle capacity to clear the freight that will actually arrive, and that decision is taken before the freight exists. Commit too little and parcels miss their service window; commit too much and the carrier pays for empty cubic metres. The commitment is made worse by the structure of the fleet: part of it is contracted on long-term terms and is cheap but fixed in size and lane assignment, while the rest is bought on the spot market at roughly 1.3&ndash;1.8&times; the daily rate and 1.9&ndash;3.0&times; the per-kilometre rate. Planning therefore has two coupled halves &mdash; predict the volume, then buy the cheapest feasible capacity for it.</p>
+
+              <p>This paper describes a system that performs both halves for a Turkish parcel network and reports what worked, what did not, and what the numbers actually support. The forecasting half is a supervised regression over a complete lane-day panel rather than a collection of per-lane time series; the optimisation half is a two-stage mixed-integer program over four vehicle classes. The two halves are joined by a recursive forecasting loop, because the planning horizon starts one day after the last usable observation and the model consumes its own lagged predictions from the second step onwards.</p>
+
+              <p>Three aspects of the problem shaped the design and are, we think, the transferable part of the work.</p>
+
+              <p><span class="paper-lead">The target is zero-inflated by construction, not by accident.</span> Only 89 of the 306 ordered centre pairs ever carry freight. Fitting only those 89 lanes discards the information that the other 217 are structurally empty; fitting all 306 turns 72.7&nbsp;% of the training rows into zeros. We train on the full grid &mdash; which lets the model learn the network's shape &mdash; but <em>forecast</em> only on lanes with observed history, which keeps the delivered plan free of phantom lanes. This asymmetry between the training and inference grids is deliberate; we did not run a controlled A/B of the two panel constructions, so we present it as a design argument rather than a measured effect.</p>
+
+              <p><span class="paper-lead">A single hold-out week flatters the naive benchmarks.</span> A seven-day trailing mean ranks seventh of sixteen on the final week &mdash; ahead of ElasticNet, CatBoost, Ridge, Lasso and OLS &mdash; and then falls to twelfth under a three-fold rolling backtest, as its hold-out error of 30.3&nbsp;% degrades to 42.1&nbsp;%. The top of the ranking is stable across both protocols, but that is a result rather than an assumption. We select on a blend of the two, plus a bias penalty, and report both components so the reader can apply their own weighting.</p>
+
+              <p><span class="paper-lead">The optimisation is large but separable.</span> The lane-day allocation problem looks like a 2,356-variable integer program, but neither the objective nor the constraints couple two lane-days, so it decomposes into 589 independent integer covering problems. This is why a brute-force enumeration and a CBC branch-and-bound reach an identical cost, and why the heuristic that sits between them is 0.09&nbsp;% worse: the instances are small enough that optimality is cheap. Recognising the separability is more valuable than the choice of solver.</p>
+
+              <h4>2. Related work</h4>
+
+              <p>Demand forecasting for logistics sits between classical time-series forecasting and supervised learning on panel data. The intermittency of lane-level freight &mdash; long runs of zeros punctuated by large shipments &mdash; is the defining feature that classical exponential smoothing handles poorly; Croston's method [1] and its bias-corrected variants [2] were developed precisely for this regime. Our lane-day series are intermittent in exactly this sense, but the intermittency is dominated by a strong weekly cycle (Sunday volume is 14&nbsp;% of Monday volume) and by network-level structure that per-series methods cannot see.</p>
+
+              <p>The M5 competition [3] established that gradient-boosted decision trees fitted to a pooled panel with engineered calendar and lag features outperform per-series statistical models on exactly this class of problem &mdash; retail-scale, hierarchical, intermittent, weekly seasonal. We follow that template. LightGBM [5] is our primary learner, with XGBoost [6] and CatBoost [7] as comparators, and scikit-learn [8] supplying the linear and bagged-tree baselines. Hyperparameters are tuned with Optuna's TPE sampler [9]. For a non-negative, zero-inflated, right-skewed target the Tweedie deviance [10] is the natural loss, and the tuner selected it over squared and absolute error in both tuning runs we performed. Accuracy is reported as WMAPE, whose scale-freeness and behaviour on zero-valued actuals are discussed by Hyndman and Koehler [4].</p>
+
+              <p>The allocation half is a fleet-sizing and capacity-assignment problem rather than a routing problem: lanes are fixed, so the classical vehicle routing formulations [11] do not apply, and what remains is closer to a cutting-stock or bin-covering program. We solve it with CBC [13] through the PuLP modelling layer [14], and compare against an adaptive large neighbourhood search in the style of Ropke and Pisinger [12] to check whether the exact solver's structure is worth its cost.</p>
+
+              <h4>3. Problem setting and data</h4>
+
+              <h5>3.1 Network and units</h5>
+
+              <p>The network comprises 18 transfer centres, of which 12 dispatch freight and 17 receive it. Volume is measured in <em>desi</em>, the Turkish dimensional-weight unit (length &times; width &times; height in cm, divided by 3000), which is the billing and capacity unit used throughout the industry; vehicle capacities are quoted in the same unit, so volume and capacity are directly commensurable and no conversion is needed anywhere in the pipeline.</p>
+
+              <p>Four tables are supplied. Daily lane volume covers 1 January to 10 May 2026 (10,770 lane-day records, 124.97&nbsp;M desi in total). Centre coordinates give latitude and longitude for all 18 centres, from which we compute great-circle distances. A vehicle table lists the capacity and the four-part cost structure of each of four classes. A contracted-fleet table lists 14 vehicles per day pre-assigned to 12 specific lanes.</p>
+
+              <div class="paper-table-wrap">
+                <table class="paper-table">
+                  <thead>
+                    <tr><th>Property</th><th class="num">Value</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Transfer centres</td><td class="num">18</td></tr>
+                    <tr><td>Centres dispatching / receiving freight</td><td class="num">12 / 17</td></tr>
+                    <tr><td>Ordered centre pairs (possible lanes)</td><td class="num">306</td></tr>
+                    <tr><td>Lanes with any observed volume</td><td class="num">89</td></tr>
+                    <tr><td>Observation window</td><td class="num">1 Jan &ndash; 10 May 2026</td></tr>
+                    <tr><td>Days observed</td><td class="num">130</td></tr>
+                    <tr><td>Lane-day records</td><td class="num">10,770</td></tr>
+                    <tr><td>Total volume</td><td class="num">124,968,086 desi</td></tr>
+                    <tr><td>Median observed lane-day volume</td><td class="num">9,449 desi</td></tr>
+                    <tr><td>Maximum lane-day volume</td><td class="num">67,808 desi</td></tr>
+                    <tr><td>Share of volume on the 10 busiest lanes</td><td class="num">24.8&nbsp;%</td></tr>
+                    <tr><td>Share of volume on the 20 busiest lanes</td><td class="num">41.4&nbsp;%</td></tr>
+                    <tr><td>Mean great-circle lane length</td><td class="num">491 km (46&ndash;1,208)</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="paper-table-caption"><strong>Table 1.</strong> The line-haul network as supplied.</p>
+
+              <div class="paper-table-wrap">
+                <table class="paper-table">
+                  <thead>
+                    <tr>
+                      <th rowspan="2">Class</th>
+                      <th class="num" rowspan="2">Capacity (desi)</th>
+                      <th class="num" colspan="2">Contracted</th>
+                      <th class="num" colspan="2">Spot</th>
+                    </tr>
+                    <tr>
+                      <th class="num">Daily (TL)</th><th class="num">Per km</th>
+                      <th class="num">Daily (TL)</th><th class="num">Per km</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Articulated truck (<em>Tır</em>)</td><td class="num">22,400</td><td class="num">7,000</td><td class="num">13</td><td class="num">11,700</td><td class="num">25</td></tr>
+                    <tr><td>Rigid truck (<em>Kamyon</em>)</td><td class="num">12,000</td><td class="num">5,000</td><td class="num">10</td><td class="num">7,638</td><td class="num">21</td></tr>
+                    <tr><td>Light truck (<em>Hafif Kamyon</em>)</td><td class="num">7,200</td><td class="num">5,000</td><td class="num">10</td><td class="num">8,750</td><td class="num">20</td></tr>
+                    <tr><td>Van (<em>Kamyonet</em>)</td><td class="num">5,600</td><td class="num">3,750</td><td class="num">6</td><td class="num">4,750</td><td class="num">18</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="paper-table-caption"><strong>Table 2.</strong> Vehicle classes and their cost structure. Cost of one vehicle on one lane-day is a fixed daily charge plus a per-kilometre charge; spot daily charges are 1.3&ndash;1.8&times; and spot per-kilometre rates 1.9&ndash;3.0&times; the contracted equivalent. Capacities are representative values supplied with the problem.</p>
+
+              <h5>3.2 What the data look like</h5>
+
+              <p>Figure 1 shows the two dominant patterns. Volume follows a hard weekly cycle: Monday averages 1.64&nbsp;M desi and Sunday 0.24&nbsp;M desi, a 6.9&times; ratio, with a monotone decay from Monday through Saturday. Any model that does not represent day-of-week explicitly is competing against a very strong seasonal naive benchmark.</p>
+
+              <p>Figure 1(a) also exposes a data-quality problem we did not expect. Five days in the series report fewer than 40 of the 89 active lanes: 31 January, 28 February, 31 March, 30 April and 10 May. Four of these are month-ends and the fifth is the final day of the extract. The pattern is consistent with an extraction that truncates at period boundaries rather than with genuine near-zero demand. Only 10 May was excluded from training in the delivered pipeline, because it is the day immediately preceding the forecast window and its corruption would propagate directly into every lag feature at inference time. The four month-end days remain in the training panel and constitute label noise that we quantify in Section 6 but did not remove.</p>
+
+              <figure class="paper-figure">
+                <img src="../assets/img/project/logistics/fig1_demand.png" alt="Daily demand time series and weekday profile">
+                <figcaption><strong>Figure 1.</strong> Demand structure. <strong>(a)</strong> Network-wide daily volume. The shaded band is the hold-out week; open circles mark the five truncated days on which fewer than 40 of 89 lanes reported. <strong>(b)</strong> Mean volume by weekday &mdash; the cycle spans a factor of 6.9.</figcaption>
+              </figure>
+
+              <p>Figure 2 shows the network's other structural property: volume is concentrated but not extremely so. İstanbul and Kocaeli dominate as origins, and the top ten lanes carry 24.8&nbsp;% of all volume, but the tail is long enough that a plan optimised only for the head would miss a large share of cost.</p>
+
+              <figure class="paper-figure">
+                <img src="../assets/img/project/logistics/fig2_network.png" alt="Origin-destination heatmap and volume concentration curve">
+                <figcaption><strong>Figure 2.</strong> Network structure. <strong>(a)</strong> Total volume by origin&ndash;destination pair on a logarithmic scale; white cells are pairs that never carry freight, and they are the majority. <strong>(b)</strong> Cumulative share of volume across the 89 active lanes.</figcaption>
+              </figure>
+
+              <h4>4. Method</h4>
+
+              <h5>4.1 Panel construction</h5>
+
+              <p>Let <em>C</em> be the set of 18 centres and <em>L</em> = {(<em>o</em>,&nbsp;<em>e</em>) &isin; <em>C</em>&times;<em>C</em> : <em>o</em> &ne; <em>e</em>} the 306 ordered pairs. We build the training panel on the full Cartesian product <em>L</em>&nbsp;&times;&nbsp;<em>D</em>, where <em>D</em> is the set of 129 usable days (1 January &ndash; 9 May, excluding 10 May), and set <em>y</em><sub>o,e,t</sub>&nbsp;=&nbsp;0 wherever the source table has no record. This yields 39,474 rows of which 72.7&nbsp;% are zero.</p>
+
+              <p>The alternative &mdash; restricting the panel to the 89 lanes that carry freight &mdash; was implemented and evaluated. Training on the full grid is what allows the model to learn that a lane's identity, not merely its history, predicts its volume: the categorical origin, destination and route features become informative only when the model has seen the empty pairs. At inference time we invert the choice and predict only on the 89 observed lanes. Predicting on all 306 would emit capacity requests for lanes the carrier does not operate, which is worse than useless in a plan that a dispatcher has to execute.</p>
+
+              <h5>4.2 Features</h5>
+
+              <p>Fifty-eight features are computed per lane-day, in five families (Table 3). Every history-derived feature is computed on values shifted by at least one day within its own lane, so no feature at time <em>t</em> can see <em>y</em><sub>t</sub>. The route-share features deserve a note: a lane's share of its origin's total outbound volume is a strong signal, but the single-day version is noisy on low-volume lanes, so we compute both the one-day and the seven-day rolling variant and let the model choose. Distances are great-circle (Haversine) between centre coordinates and enter both linearly and as log(1&nbsp;+&nbsp;<em>d</em>).</p>
+
+              <div class="paper-table-wrap">
+                <table class="paper-table">
+                  <thead>
+                    <tr><th>Family</th><th class="num">n</th><th>Contents</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Calendar</td><td class="num">8</td><td>day-of-week, day, ISO week, month, weekend flag, and the categorical origin, destination and route identifiers</td></tr>
+                    <tr><td>Holiday &amp; special day</td><td class="num">24</td><td>national holiday flags and names, day-before / day-after, signed distance to the nearest holiday, bridge-day and long-weekend flags, plus the same apparatus for commercial gift days (Valentine's, Mother's Day, Singles' Day, Teachers' Day, New Year's Eve)</td></tr>
+                    <tr><td>Lag &amp; rolling</td><td class="num">22</td><td>lags 1, 2, 3, 7, 14, 21, 28; rolling mean over 3/7/14 days; rolling std/max/min over 7; expanding lane mean; EWM with spans 7 and 14; same-weekday mean over 4 weeks; week-on-week difference; momentum ratio; 28-day non-zero rate; days since last positive volume; expanding lane&times;weekday mean</td></tr>
+                    <tr><td>Route aggregate</td><td class="num">10</td><td>origin and destination daily totals at lags 1 and 7 and their 7-day rolling means; the lane's share of origin and destination volume, in one-day and seven-day forms</td></tr>
+                    <tr><td>Distance</td><td class="num">2</td><td>great-circle kilometres and its logarithm</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="paper-table-caption"><strong>Table 3.</strong> Feature families. Categorical columns are ordinal-encoded for tree models and one-hot encoded with standardised numerics for linear models.</p>
+
+              <h5>4.3 Evaluation protocol</h5>
+
+              <p>The primary metric is the weighted mean absolute percentage error,</p>
+
+              <div class="paper-math">
+                WMAPE = 100 &middot; &Sigma;<sub>i</sub> |<em>y</em><sub>i</sub> &minus; <em>ŷ</em><sub>i</sub>| &nbsp;/&nbsp; &Sigma;<sub>i</sub> <em>y</em><sub>i</sub>
+              </div>
+
+              <p>which is defined when individual actuals are zero &mdash; unavoidable here &mdash; and weights lanes by the volume they contribute, which is what the cost function cares about. We also report MAE, RMSE, sMAPE, R&sup2; and the signed volume bias 100&nbsp;(&Sigma;&nbsp;<em>ŷ</em><sub>i</sub> &minus; &Sigma;&nbsp;<em>y</em><sub>i</sub>) / &Sigma;&nbsp;<em>y</em><sub>i</sub>.</p>
+
+              <p>Two evaluations are run for every candidate. The <strong>hold-out</strong> is the final seven days, 3&ndash;9 May 2026, comprising 2,142 lane-days. The <strong>rolling backtest</strong> refits the model three times on expanding training windows with seven-day validation periods ending on 25 April, 2 May and 9 May. Model selection uses a blended score,</p>
+
+              <div class="paper-math">
+                S = &frac12; WMAPE<sub>hold-out</sub> + &frac12; WMAPE<sub>rolling</sub> + 0.05 |bias| + 0.01 &middot; MAE / median(MAE)
+              </div>
+
+              <p>where the last two terms are tie-breakers that penalise systematically biased and absolutely inaccurate models at the margin. The blend matters mainly in the middle of the ranking, where models that fit the final week well are separated from models that generalise.</p>
+
+              <h5>4.4 Hyperparameter optimisation</h5>
+
+              <p>LightGBM is tuned with Optuna's TPE sampler over 500 trials with median pruning. The search space spans the objective (squared error, absolute error, Tweedie), 50&ndash;600 trees, learning rate 0.005&ndash;0.3 on a log scale, 8&ndash;128 leaves, depth 3&ndash;12, minimum child samples 5&ndash;100, row and column subsampling 0.5&ndash;1.0, L<sub>1</sub> and L<sub>2</sub> regularisation over eight orders of magnitude, minimum split gain 0&ndash;1, and the Tweedie variance power over 1.1&ndash;1.6.</p>
+
+              <p>The tuning objective is deliberately not the panel-wide WMAPE. It is the mean, across the three backtest folds, of the WMAPE computed on the rows that (i) appear in the source table &mdash; rather than being structural zeros added by the panel &mdash; and (ii) carry a predicted volume above the 50-desi reporting threshold used in the delivered file. Tuning against the panel-wide error would let a model buy improvements by predicting the structural zeros ever more precisely, which is free accuracy on rows nobody plans against. Restricting the objective to the rows that reach the plan aligns the tuner with the decision. The best trial (number 219 of 500) reached 22.11&nbsp;%; its parameters are in Table 7.</p>
+
+              <h5>4.5 Recursive forecasting</h5>
+
+              <p>The planning week is 11&ndash;17 May 2026, but the last usable observation is 9 May. The model therefore forecasts eight steps, beginning on 10 May, and the 10 May predictions &mdash; which exist only to supply lag-1, rolling and EWM features for 11 May &mdash; are dropped before delivery. At each step the predicted values are appended to the history panel, all features are recomputed from the extended panel, and the next day is predicted. Predictions are clipped at zero. This bridging is what allows the corrupted 10 May observation to be discarded without leaving a hole in the lag structure.</p>
+
+              <p>The delivered file rounds to two decimals and drops rows at or below 50 desi. In the final run no row fell below that threshold: all 89&nbsp;&times;&nbsp;7&nbsp;=&nbsp;623 lane-days survive.</p>
+
+              <h5>4.6 Fleet allocation</h5>
+
+              <p>Let <em>L</em> index the 623 lane-days in the plan, <em>V</em> the four vehicle classes, <em>q</em><sub>&#8467;</sub> the forecast volume on lane-day &#8467;, &kappa;<sub>v</sub> the capacity of class <em>v</em>, and <em>d</em><sub>&#8467;</sub> the lane's great-circle distance. The cost of one vehicle of class <em>v</em> on lane-day &#8467; is</p>
+
+              <div class="paper-math">
+                <em>c</em><sup>s</sup><sub>&#8467;v</sub> = <em>f</em><sup>s</sup><sub>v</sub> + <em>k</em><sup>s</sup><sub>v</sub> <em>d</em><sub>&#8467;</sub> &nbsp;&nbsp;&nbsp;&nbsp;
+                <em>c</em><sup>r</sup><sub>&#8467;v</sub> = <em>f</em><sup>r</sup><sub>v</sub> + <em>k</em><sup>r</sup><sub>v</sub> <em>d</em><sub>&#8467;</sub>
+              </div>
+
+              <p>for spot (<em>s</em>) and contracted (<em>r</em>) sourcing respectively, with <em>f</em> the daily fixed charge and <em>k</em> the per-kilometre rate from Table 2.</p>
+
+              <p><strong>Stage 1 &mdash; contracted fleet.</strong> The contracted fleet is a sunk commitment: its composition, lane assignment and count <em>R</em><sub>&#8467;v</sub> are given and cannot be changed. On each lane-day we therefore consume it first, filling <em>n</em><sup>r</sup><sub>&#8467;v</sub> = min(<em>R</em><sub>&#8467;v</sub>, &lceil;<em>q</em><sub>&#8467;</sub>/&kappa;<sub>v</sub>&rceil;) vehicles and charging only those that carry load. The residual is <em>r</em><sub>&#8467;</sub> = max(0, <em>q</em><sub>&#8467;</sub> &minus; &Sigma;<sub>v</sub> &kappa;<sub>v</sub> <em>n</em><sup>r</sup><sub>&#8467;v</sub>).</p>
+
+              <p><strong>Stage 2 &mdash; spot purchase.</strong> With <em>x</em><sub>&#8467;v</sub> &isin; &#8484;<sub>&ge;0</sub> the number of spot vehicles of class <em>v</em> bought for lane-day &#8467;:</p>
+
+              <div class="paper-math">
+                min<sub>x</sub> &nbsp; &Sigma;<sub>&#8467;&isin;L</sub> &Sigma;<sub>v&isin;V</sub> <em>c</em><sup>s</sup><sub>&#8467;v</sub> <em>x</em><sub>&#8467;v</sub> <span class="constraint-label">(1)</span><br>
+                s.t. &nbsp; &Sigma;<sub>v&isin;V</sub> &kappa;<sub>v</sub> <em>x</em><sub>&#8467;v</sub> &ge; <em>r</em><sub>&#8467;</sub> &nbsp;&nbsp; &forall;&#8467; &isin; L <span class="constraint-label">(2)</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &Sigma;<sub>v&isin;V</sub> 0.1 &kappa;<sub>v</sub> <em>x</em><sub>&#8467;v</sub> &le; <em>r</em><sub>&#8467;</sub> &nbsp;&nbsp; &forall;&#8467; : <em>r</em><sub>&#8467;</sub> &ge; min<sub>v</sub> 0.1&kappa;<sub>v</sub> <span class="constraint-label">(3)</span>
+              </div>
+
+              <p>Constraint (2) is the service requirement: the whole forecast must move. Constraint (3) is the carrier's minimum-fill rule &mdash; no spot vehicle may be dispatched below 10&nbsp;% of its capacity &mdash; expressed as an aggregate bound so that the optimiser cannot buy a fleet whose floors alone exceed the load. On lane-days whose residual is smaller than 10&nbsp;% of the smallest vehicle the constraint is infeasible by construction and is relaxed for that lane-day only; this occurs rarely and is reported. Once counts are fixed, load is distributed by giving each selected vehicle its 10&nbsp;% floor and then filling vehicles to capacity in turn.</p>
+
+              <p>Only 589 of the 623 lane-days need spot capacity, giving 589&nbsp;&times;&nbsp;4&nbsp;=&nbsp;2,356 integer variables and 1,178 constraints. Neither (1) nor (2)&ndash;(3) couples two lane-days, so the program separates into 589 independent integer covering problems &mdash; a fact that Section 5.4 exploits to explain the solver comparison. We solve the joint program with CBC through PuLP.</p>
+
+              <h4>5. Results</h4>
+
+              <h5>5.1 Forecast accuracy</h5>
+
+              <p>Table 4 and Figure 3 give the full comparison. The tuned LightGBM reaches a hold-out WMAPE of 16.74&nbsp;% with R&sup2;&nbsp;=&nbsp;0.949; restricted to the observed-lane rows above the reporting threshold &mdash; the 614 rows that a planner actually sees &mdash; WMAPE is 16.21&nbsp;%. Its rolling-backtest WMAPE is 22.71&nbsp;% (folds: 20.38, 29.70, 18.04).</p>
+
+              <p>Against the strongest naive benchmark (a seven-day trailing mean, 30.31&nbsp;% hold-out) this is a 44.8&nbsp;% relative reduction; against the same LightGBM with default hyperparameters (26.72&nbsp;%) it is 37.4&nbsp;%. The two protocols agree on the top of the table &mdash; the tuned model leads on both, and the first six places are identical &mdash; but they disagree materially below it. The seven-day trailing mean is the clearest case: at 30.31&nbsp;% it beats five fitted models on the hold-out week, then falls five places once the rolling folds are included, because a single week cannot distinguish a benchmark that is genuinely competitive from one that happens to suit the week it was measured on. Extra Trees is the best of the untuned learners under both protocols, but its hold-out-to-rolling spread of 7.7 points is wider than the tuned model's 6.0, which is the kind of instability the blended score is meant to price. The seasonal naive benchmark is the weakest of all at 53.46&nbsp;%, which is a direct consequence of the truncated month-end days: a same-weekday lookup that lands on 31 March predicts near-zero volume for the following week.</p>
+
+              <figure class="paper-figure">
+                <img src="../assets/img/project/logistics/fig3_models.png" alt="Model comparison bar chart">
+                <figcaption><strong>Figure 3.</strong> Sixteen candidates on the full 306-lane panel, ordered by the blended selection score. Dark bars are hold-out error on 3&ndash;9 May; grey bars are the mean over the three rolling backtest folds. The two orderings agree on the first six places and diverge below them.</figcaption>
+              </figure>
+
+              <div class="paper-table-wrap">
+                <table class="paper-table">
+                  <thead>
+                    <tr><th>Model</th><th class="num">Hold-out WMAPE</th><th class="num">Rolling WMAPE</th><th class="num">MAE</th><th class="num">R&sup2;</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr class="highlight"><td>LightGBM + Optuna (selected)</td><td class="num">16.74</td><td class="num">22.71</td><td class="num">660</td><td class="num">0.949</td></tr>
+                    <tr><td>Extra Trees</td><td class="num">19.68</td><td class="num">27.35</td><td class="num">776</td><td class="num">0.944</td></tr>
+                    <tr><td>Random Forest</td><td class="num">21.26</td><td class="num">29.02</td><td class="num">839</td><td class="num">0.933</td></tr>
+                    <tr><td>Gradient Boosting</td><td class="num">24.51</td><td class="num">31.35</td><td class="num">966</td><td class="num">0.921</td></tr>
+                    <tr><td>HistGradientBoosting</td><td class="num">26.56</td><td class="num">33.17</td><td class="num">1,047</td><td class="num">0.918</td></tr>
+                    <tr><td>LightGBM (defaults)</td><td class="num">26.72</td><td class="num">34.78</td><td class="num">1,054</td><td class="num">0.920</td></tr>
+                    <tr><td>ElasticNet</td><td class="num">30.92</td><td class="num">36.12</td><td class="num">1,219</td><td class="num">0.906</td></tr>
+                    <tr><td>CatBoost</td><td class="num">31.03</td><td class="num">36.82</td><td class="num">1,224</td><td class="num">0.892</td></tr>
+                    <tr><td>Lasso</td><td class="num">33.25</td><td class="num">39.71</td><td class="num">1,311</td><td class="num">0.904</td></tr>
+                    <tr><td>Ridge</td><td class="num">34.13</td><td class="num">38.15</td><td class="num">1,346</td><td class="num">0.912</td></tr>
+                    <tr><td>OLS</td><td class="num">34.40</td><td class="num">38.78</td><td class="num">1,357</td><td class="num">0.913</td></tr>
+                    <tr><td>LSTM + XGBoost hybrid</td><td class="num">36.06</td><td class="num">43.42</td><td class="num">1,422</td><td class="num">0.874</td></tr>
+                    <tr><td>XGBoost</td><td class="num">41.69</td><td class="num">46.85</td><td class="num">1,644</td><td class="num">0.836</td></tr>
+                    <tr><td>Naive: 7-day trailing mean</td><td class="num">30.31</td><td class="num">42.08</td><td class="num">1,195</td><td class="num">0.866</td></tr>
+                    <tr><td>Naive: moving average</td><td class="num">49.27</td><td class="num">51.71</td><td class="num">1,943</td><td class="num">0.695</td></tr>
+                    <tr><td>Naive: same weekday</td><td class="num">53.46</td><td class="num">41.47</td><td class="num">2,108</td><td class="num">0.554</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="paper-table-caption"><strong>Table 4.</strong> Forecast accuracy on the 2,142 lane-days of the hold-out week and under the three-fold rolling backtest. All models share the same 58 features and the same panel. Errors are percentages; MAE is in desi.</p>
+
+              <p>Figure 4(b) shows where the error lives. Above roughly 5,000 desi the predictions sit tightly on the diagonal; the scatter widens sharply below 1,000 desi, where the Tweedie objective's variance assumption and the intermittency of small lanes interact. Since WMAPE weights by volume and the cost function is driven by the large lanes, this is the right place for the residual error to be &mdash; but it does mean per-lane relative accuracy on small lanes is poor and should not be quoted.</p>
+
+              <figure class="paper-figure">
+                <img src="../assets/img/project/logistics/fig4_fit.png" alt="Hold-out week fit and lane-day scatter">
+                <figcaption><strong>Figure 4.</strong> Hold-out behaviour of the selected model. <strong>(a)</strong> Network daily totals: the shape of the week is captured, but the level is systematically low from 5 May onward. <strong>(b)</strong> Lane-day predictions against actuals on log axes; dispersion grows sharply below 1,000 desi.</figcaption>
+              </figure>
+
+              <p>The one clear defect is visible in Figure 4(a). The model under-predicts total volume by 7.27&nbsp;%, but the error is not a uniform level shift: it under-predicts on all six weekdays, worst on Thursday at &minus;15.0&nbsp;%, and then over-predicts Saturday by +22.1&nbsp;%. The model has learned that volume decays through the week and applies that decay too aggressively at the tail. A Tweedie loss is symmetric in the sense that matters here &mdash; it has no reason to prefer over- to under-prediction &mdash; while the carrier's cost of the two errors is very different. We return to this in Section 6.</p>
+
+              <h5>5.2 The planning week</h5>
+
+              <p>Recursive forecasting over 11&ndash;17 May yields 623 lane-days totalling 6,708,749 desi. The weekly shape is preserved, from 1.83&nbsp;M desi on Monday to 0.17&nbsp;M desi on Sunday (Figure 5(a)).</p>
+
+              <h5>5.3 Fleet allocation</h5>
+
+              <p>The optimiser returns a plan of 707 vehicle-days &mdash; 613 spot and 94 contracted &mdash; costing 10,254,151&nbsp;TL, or 1.526&nbsp;TL per desi moved. Mean fill across all dispatched vehicles is 67.7&nbsp;% (65.1&nbsp;% for spot vehicles alone).</p>
+
+              <p>The contracted fleet is the cheapest capacity in the network and is exhausted first: 94 vehicle-days carry 1.52&nbsp;M desi &mdash; 22.7&nbsp;% of the total volume &mdash; for 7.5&nbsp;% of the total cost. Among spot classes the optimiser's choices track cost per unit capacity closely: rigid trucks are the workhorse at 261 vehicles, articulated trucks are bought where volume justifies their higher fixed cost, and vans appear 209 times as the cheapest way to absorb the remainder on small lanes without violating the fill rule.</p>
+
+              <figure class="paper-figure">
+                <img src="../assets/img/project/logistics/fig5_plan.png" alt="Planning week volume and cost by vehicle class">
+                <figcaption><strong>Figure 5.</strong> The delivered plan. <strong>(a)</strong> Forecast volume (bars) and plan cost (line) by day. <strong>(b)</strong> Cost by vehicle class, annotated with vehicle-days and volume carried.</figcaption>
+              </figure>
+
+              <div class="paper-table-wrap">
+                <table class="paper-table">
+                  <thead>
+                    <tr><th>Class</th><th class="num">Vehicle-days</th><th class="num">Volume (desi)</th><th class="num">Cost (TL)</th><th class="num">Share of cost</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Contracted articulated truck</td><td class="num">66</td><td class="num">1,211,124</td><td class="num">583,545</td><td class="num">5.7&nbsp;%</td></tr>
+                    <tr><td>Contracted rigid truck</td><td class="num">28</td><td class="num">311,811</td><td class="num">185,067</td><td class="num">1.8&nbsp;%</td></tr>
+                    <tr><td>Spot articulated truck</td><td class="num">143</td><td class="num">2,366,910</td><td class="num">2,662,486</td><td class="num">26.0&nbsp;%</td></tr>
+                    <tr><td>Spot rigid truck</td><td class="num">261</td><td class="num">2,225,345</td><td class="num">4,228,044</td><td class="num">41.2&nbsp;%</td></tr>
+                    <tr><td>Spot van</td><td class="num">209</td><td class="num">602,874</td><td class="num">2,595,009</td><td class="num">25.3&nbsp;%</td></tr>
+                    <tr class="highlight"><td>Total</td><td class="num">707</td><td class="num">6,718,064</td><td class="num">10,254,151</td><td class="num">100&nbsp;%</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="paper-table-caption"><strong>Table 5.</strong> Composition of the delivered plan for 11&ndash;17 May 2026. Light trucks are never selected: a rigid truck carries 67&nbsp;% more for a daily charge 13&nbsp;% lower, and its 1&nbsp;TL higher per-kilometre rate only overturns that beyond 1,112&nbsp;km &mdash; longer than all but a handful of lanes here.</p>
+
+              <h5>5.4 How much of the saving comes from where</h5>
+
+              <p>Table 6 separates the contributions. Against the cheapest single-class reference &mdash; serving every lane-day with rigid trucks only, no contracted fleet, no mixing &mdash; the full system is 21.5&nbsp;% cheaper. Removing the contracted fleet but keeping the mixed-fleet optimiser costs 389,114&nbsp;TL more, so the long-term contracts are worth 3.7&nbsp;% of the weekly bill at their quoted rates. The remainder of the saving is the fleet mix itself.</p>
+
+              <p>The solver comparison is the flat part of the table, and deliberately so. CBC and the brute-force enumeration return exactly the same cost, because the separated per-lane subproblems have at most a few hundred feasible integer combinations each and both methods find the per-lane optimum. The ALNS heuristic lands 0.09&nbsp;% above them in half the time. On an instance of this size the exact method is free; the reason to prefer it is not speed but the optimality certificate, which is what allows the 21.5&nbsp;% figure above to be stated as a bound rather than a comparison of two heuristics.</p>
+
+              <div class="paper-table-wrap">
+                <table class="paper-table">
+                  <thead>
+                    <tr><th>Configuration</th><th class="num">Cost (TL)</th><th class="num">&Delta;</th><th class="num">Vehicles</th><th class="num">Runtime</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr class="highlight"><td>MILP, mixed fleet, with contracts</td><td class="num">10,254,151</td><td class="num">&mdash;</td><td class="num">707</td><td class="num">1.2 s</td></tr>
+                    <tr><td>Brute-force enumeration, same inputs</td><td class="num">10,254,151</td><td class="num">+0.00&nbsp;%</td><td class="num">707</td><td class="num">1.4 s</td></tr>
+                    <tr><td>ALNS destroy&ndash;repair, same inputs</td><td class="num">10,263,855</td><td class="num">+0.09&nbsp;%</td><td class="num">707</td><td class="num">0.7 s</td></tr>
+                    <tr><td>MILP, mixed fleet, no contracted fleet</td><td class="num">10,643,265</td><td class="num">+3.79&nbsp;%</td><td class="num">692</td><td class="num">1.2 s</td></tr>
+                    <tr><td>Reference: rigid trucks only</td><td class="num">13,067,863</td><td class="num">+27.4&nbsp;%</td><td class="num">899</td><td class="num">&mdash;</td></tr>
+                    <tr><td>Reference: articulated trucks only</td><td class="num">14,257,962</td><td class="num">+39.0&nbsp;%</td><td class="num">692</td><td class="num">&mdash;</td></tr>
+                    <tr><td>Reference: vans only</td><td class="num">16,062,818</td><td class="num">+56.6&nbsp;%</td><td class="num">1,534</td><td class="num">&mdash;</td></tr>
+                    <tr><td>Reference: light trucks only</td><td class="num">19,249,800</td><td class="num">+87.7&nbsp;%</td><td class="num">1,270</td><td class="num">&mdash;</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="paper-table-caption"><strong>Table 6.</strong> Cost of the same forecast under different allocation policies. Single-class references serve every lane-day with one vehicle type on the spot market and ignore the contracted fleet.</p>
+
+              <h5>5.5 Plan validation</h5>
+
+              <p>Sixteen automated checks run on every pipeline execution and all pass on the delivered outputs: schema conformance of both files; the horizon covering exactly seven days; completeness of the future lane grid; the reporting threshold and non-negativity of forecasts; non-negativity of assignments; no vehicle loaded above capacity; every dispatched vehicle carrying load; the minimum-fill rule; full demand coverage with zero shortfall lane-days; consistency of the reported total cost; correct contracted/spot labelling; and presence of the holiday features.</p>
+
+              <p>One consequence of the minimum-fill rule is worth quantifying. Because a vehicle cannot be dispatched below 10&nbsp;% of capacity, 34 of the 623 lane-days end up with slightly more capacity assigned than forecast &mdash; 9,315 desi in total, or 0.139&nbsp;% of planned volume. This is the price of the rule, and it is small.</p>
+
+              <h4>6. Discussion and limitations</h4>
+
+              <p><span class="paper-lead">The bias is the most actionable defect.</span> The selected model under-predicts total hold-out volume by 7.27&nbsp;%. Under-forecasting is not symmetric in this business: unplanned volume must be moved on emergency spot capacity or misses its service window, while over-forecasting wastes a fraction of a vehicle. The pipeline currently optimises a symmetric deviance and then plans against the point forecast, which is the wrong shape for the decision. The natural fix is to forecast a high quantile &mdash; or to optimise a pinball loss with the carrier's own shortage-to-holding cost ratio &mdash; and plan against that. We did not implement this because no SLA penalty schedule was supplied, and inventing one would have made the reported cost figures arbitrary.</p>
+
+              <p><span class="paper-lead">Month-end truncation is unhandled.</span> Four of the five truncated days remain in the training panel. They corrupt every lag feature that reaches over a month boundary, and they are almost certainly why the seasonal-naive benchmark performs so badly. Treating them as missing and imputing them &mdash; rather than as observed zeros &mdash; is a straightforward improvement that we flag rather than claim.</p>
+
+              <p><span class="paper-lead">Great-circle distance understates road distance</span> by roughly 20&ndash;30&nbsp;% on Turkish terrain, and the understatement is not uniform: mountainous eastern lanes are penalised more than the flat İstanbul&ndash;Tekirdağ corridor. Because per-kilometre rates are a large share of cost, the absolute cost figures should be read as a lower bound and the class mix as mildly biased toward distance-heavy choices. Road distances from a routing service would change the numbers but not the method.</p>
+
+              <p><span class="paper-lead">The spot market is modelled as a single tariff.</span> Real carriers distinguish pre-booked spot, standard spot and emergency spot, at increasing prices. The supplied data had one rate, so the model has one rate. Introducing the distinction would raise the value of forecast accuracy considerably, since forecast error is exactly what forces the expensive tier.</p>
+
+              <p><span class="paper-lead">No consolidation and no backhaul.</span> Each lane is planned independently and directly: freight is never routed through an intermediate hub to fill a vehicle, and empty return legs are ignored. Both are real levers &mdash; the mean fill of 67.7&nbsp;% suggests meaningful headroom &mdash; but both change the problem class from covering to routing, and were out of scope.</p>
+
+              <p><span class="paper-lead">Recursive error accumulation.</span> Predictions from step <em>k</em> feed the lag features of step <em>k</em>+1, so error compounds over the eight-step horizon. We do not report a per-horizon error decomposition because the delivery window has no ground truth; the rolling backtest measures one-step-ahead-refit accuracy, which is optimistic for day seven. A direct multi-horizon formulation (one model per lead time) would bound this properly.</p>
+
+              <p><span class="paper-lead">Contracted fleet size is a parameter, not a decision.</span> We take the 14 daily contracted vehicles as given. The result that they save 3.7&nbsp;% of the weekly bill immediately raises the question of the optimal contracted fleet size, which the current formulation cannot answer because it never prices the commitment against its utilisation across the year.</p>
+
+              <h4>7. Conclusion</h4>
+
+              <p>We have described a demand-forecasting and fleet-allocation system for a parcel line-haul network and reported its performance with the ablations that make the numbers interpretable. A tuned LightGBM on a full lane-day panel forecasts a seven-day horizon at 16.7&nbsp;% WMAPE, 44.8&nbsp;% better than the strongest naive benchmark, and a two-stage mixed-integer program converts those forecasts into a 707-vehicle plan costing 10.25&nbsp;M&nbsp;TL, 21.5&nbsp;% below the best single-class alternative.</p>
+
+              <p>Three findings generalise beyond this dataset. Training on the complete lane grid while forecasting only on operated lanes exploits structural zeros without emitting phantom capacity. Selecting models on a blend of hold-out and rolling-backtest error &mdash; rather than on a single recent window &mdash; moves a naive benchmark five places here and is what separates models that fit the last week from models that generalise. And recognising that a lane-separable allocation problem decomposes into independent per-lane subproblems reduces a 2,356-variable program to something a laptop solves in a second, which makes exactness affordable and the resulting savings figure a bound rather than an estimate.</p>
+
+              <p>The clearest path forward is to replace the symmetric point forecast with a cost-weighted quantile, so that the &minus;7.3&nbsp;% volume bias documented here is priced by the same objective that buys the vehicles.</p>
+
+              <h4>Appendix A. Selected hyperparameters</h4>
+
+              <div class="paper-table-wrap">
+                <table class="paper-table">
+                  <thead>
+                    <tr><th>Parameter</th><th>Value</th><th>Search range</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>objective</td><td>tweedie</td><td>{squared error, absolute error, tweedie}</td></tr>
+                    <tr><td>tweedie_variance_power</td><td>1.302</td><td>1.1&ndash;1.6</td></tr>
+                    <tr><td>n_estimators</td><td>296</td><td>50&ndash;600</td></tr>
+                    <tr><td>learning_rate</td><td>0.0400</td><td>0.005&ndash;0.3 (log)</td></tr>
+                    <tr><td>num_leaves</td><td>94</td><td>8&ndash;128</td></tr>
+                    <tr><td>max_depth</td><td>11</td><td>3&ndash;12</td></tr>
+                    <tr><td>min_child_samples</td><td>37</td><td>5&ndash;100</td></tr>
+                    <tr><td>subsample</td><td>0.544</td><td>0.5&ndash;1.0</td></tr>
+                    <tr><td>colsample_bytree</td><td>0.792</td><td>0.5&ndash;1.0</td></tr>
+                    <tr><td>reg_alpha</td><td>4.24&nbsp;&times;&nbsp;10<sup>&minus;6</sup></td><td>10<sup>&minus;8</sup>&ndash;10 (log)</td></tr>
+                    <tr><td>reg_lambda</td><td>0.0158</td><td>10<sup>&minus;8</sup>&ndash;10 (log)</td></tr>
+                    <tr><td>min_split_gain</td><td>0.734</td><td>0&ndash;1</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="paper-table-caption"><strong>Table 7.</strong> Best of 500 Optuna trials (trial 219), objective value 22.11&nbsp;% mean threshold WMAPE across three rolling folds.</p>
+
+              <h4>Appendix B. Reproducibility</h4>
+
+              <p>The pipeline runs as a single command and writes both delivered workbooks, a metrics workbook, a validation report and a run log. Modes exist for hyperparameter search, forecasting and optimisation in isolation. Randomness is seeded at 42 throughout; the Optuna study, the fitted model bundle and the pipeline context (feature list, dates, chosen parameters, optimiser summary) are all serialised so a delivered plan can be traced back to the run that produced it. Software: Python 3, LightGBM, scikit-learn, Optuna, PuLP with CBC, pandas and NumPy.</p>
+
+              <h4>References</h4>
+
+              <ol class="paper-refs">
+                <li>J. D. Croston. Forecasting and stock control for intermittent demands. <em>Operational Research Quarterly</em>, 23(3):289&ndash;303, 1972.</li>
+                <li>A. A. Syntetos and J. E. Boylan. The accuracy of intermittent demand estimates. <em>International Journal of Forecasting</em>, 21(2):303&ndash;314, 2005.</li>
+                <li>S. Makridakis, E. Spiliotis, and V. Assimakopoulos. The M5 accuracy competition: Results, findings and conclusions. <em>International Journal of Forecasting</em>, 38(4):1346&ndash;1364, 2022.</li>
+                <li>R. J. Hyndman and A. B. Koehler. Another look at measures of forecast accuracy. <em>International Journal of Forecasting</em>, 22(4):679&ndash;688, 2006.</li>
+                <li>G. Ke, Q. Meng, T. Finley, T. Wang, W. Chen, W. Ma, Q. Ye, and T.-Y. Liu. LightGBM: A highly efficient gradient boosting decision tree. <em>Advances in Neural Information Processing Systems 30</em>, 2017.</li>
+                <li>T. Chen and C. Guestrin. XGBoost: A scalable tree boosting system. <em>Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</em>, 785&ndash;794, 2016.</li>
+                <li>L. Prokhorenkova, G. Gusev, A. Vorobev, A. V. Dorogush, and A. Gulin. CatBoost: Unbiased boosting with categorical features. <em>Advances in Neural Information Processing Systems 31</em>, 2018.</li>
+                <li>F. Pedregosa et al. Scikit-learn: Machine learning in Python. <em>Journal of Machine Learning Research</em>, 12:2825&ndash;2830, 2011.</li>
+                <li>T. Akiba, S. Sano, T. Yanase, T. Ohta, and M. Koyama. Optuna: A next-generation hyperparameter optimization framework. <em>Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</em>, 2623&ndash;2631, 2019.</li>
+                <li>B. Jørgensen. Exponential dispersion models. <em>Journal of the Royal Statistical Society, Series B</em>, 49(2):127&ndash;162, 1987.</li>
+                <li>P. Toth and D. Vigo, editors. <em>Vehicle Routing: Problems, Methods, and Applications</em>. SIAM, 2nd edition, 2014.</li>
+                <li>S. Ropke and D. Pisinger. An adaptive large neighborhood search heuristic for the pickup and delivery problem with time windows. <em>Transportation Science</em>, 40(4):455&ndash;472, 2006.</li>
+                <li>J. Forrest and R. Lougee-Heimer. CBC user guide. <em>COIN-OR Foundation</em>, 2005.</li>
+                <li>S. Mitchell, M. O'Sullivan, and I. Dunning. PuLP: A linear programming toolkit for Python. <em>The University of Auckland</em>, 2011.</li>
+              </ol>
+
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>Project information</h3>
+              <ul class="paper-meta-list">
+                <li><strong>Project Name</strong>: Demand Forecasting and Mixed-Fleet Cost Optimization for a Parcel Line-Haul Network</li>
+                <li><strong>Project Category</strong>: Machine Learning &amp; Operations Research</li>
+                <li><strong>Project date</strong>: 2026</li>
+                <li><strong>Forecasting</strong>: LightGBM (Tweedie), Optuna, 58 features, recursive 8-step horizon</li>
+                <li><strong>Optimization</strong>: PuLP / CBC mixed-integer program, 2,356 integer variables</li>
+                <li><strong>Hold-out WMAPE</strong>: 16.7&nbsp;% (R&sup2; = 0.949)</li>
+                <li><strong>Plan cost</strong>: 10.25&nbsp;M TL for 707 vehicle-days</li>
+                <li><strong>Stack</strong>: Python, pandas, scikit-learn, LightGBM, Optuna, PuLP</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>iPortfolio</span></strong>
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
+      </div>
+    </div>
+  </footer><!-- End  Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/vendor/typed.js/typed.min.js"></script>
+  <script src="../assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
