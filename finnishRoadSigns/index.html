@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Teoriakoe FI – Finnish Driving Theory Test</title>
+<meta name="description" content="Prepare for the Finnish category B driving theory test: all 373 road signs, 989 practice questions with traffic images and a full mock exam – in English, Finnish or Swedish, fully offline.">
+<link rel="icon" type="image/png" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<meta property="og:title" content="Teoriakoe FI – Finnish Driving Theory Test">
+<meta property="og:description" content="All 373 Finnish road signs, 989 practice questions and a full mock exam – in English, Finnish or Swedish, fully offline.">
+<meta property="og:image" content="https://tutenstein.github.io/finnishRoadSigns/img/home.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f4f5fb;
+    --text: #1b1f2e;
+    --muted: #5b6275;
+    --brand: #4f43dc;
+    --brand-2: #6a5cf0;
+    --brand-ink: #ffffff;
+    --card: #ffffff;
+    --line: #e2e5f0;
+    --green: #1d6b5c;
+    --shadow: 0 10px 30px rgba(40, 36, 120, .10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10131c;
+      --bg-soft: #161a26;
+      --text: #e8ebf4;
+      --muted: #a2a9bb;
+      --brand: #8b80ff;
+      --brand-2: #a79eff;
+      --brand-ink: #10131c;
+      --card: #1a1f2d;
+      --line: #2b3244;
+      --green: #6fd1b9;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.6 "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: var(--brand); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+  /* Top bar */
+  header.top { padding: 16px 0; }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: var(--text); text-decoration: none; }
+  .brand img { width: 36px; height: 36px; border-radius: 9px; }
+  nav.lang { display: flex; gap: 4px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+  nav.lang button {
+    border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 14px; font-weight: 700;
+    padding: 4px 12px; border-radius: 999px; cursor: pointer;
+  }
+  nav.lang button[aria-pressed="true"] { background: var(--card); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+
+  /* Hero */
+  .hero { padding: 32px 0 56px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+  .eyebrow { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); margin-bottom: 12px; }
+  h1 { font-size: clamp(34px, 5.5vw, 54px); line-height: 1.08; letter-spacing: -.02em; margin: 0 0 18px; font-weight: 800; }
+  .hero p.lead { font-size: 19px; color: var(--muted); margin: 0 0 28px; max-width: 34em; }
+  .badges { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 12px;
+    background: var(--text); color: var(--bg); text-decoration: none; font-weight: 700; font-size: 15px; line-height: 1.2;
+  }
+  .badge small { display: block; font-size: 11px; font-weight: 600; opacity: .75; }
+  .badge svg { width: 22px; height: 22px; flex: none; fill: currentColor; }
+  .badge[aria-disabled="true"] { opacity: .9; cursor: default; }
+  .soon { font-size: 14px; color: var(--muted); margin-top: 12px; }
+  .hero-shot {
+    background: linear-gradient(160deg, var(--brand), var(--brand-2));
+    border-radius: 28px; padding: 0; overflow: hidden; box-shadow: var(--shadow);
+    max-width: 380px; justify-self: center; width: 100%;
+  }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 8px; }
+  .stat { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 16px; padding: 18px 16px; text-align: center; }
+  .stat b { display: block; font-size: 30px; font-weight: 800; color: var(--brand); line-height: 1.1; }
+  .stat span { font-size: 14px; color: var(--muted); font-weight: 600; }
+
+  /* Features */
+  section.block { padding: 56px 0; }
+  section.alt { background: var(--bg-soft); }
+  h2 { font-size: clamp(26px, 3.6vw, 36px); line-height: 1.15; letter-spacing: -.01em; margin: 0 0 12px; font-weight: 800; }
+  .section-lead { color: var(--muted); margin: 0 0 36px; max-width: 40em; }
+  .feature { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .feature + .feature { margin-top: 64px; }
+  .feature.flip .copy { order: 2; }
+  .feature .shot { max-width: 320px; justify-self: center; width: 100%; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow); }
+  .feature h3 { font-size: 24px; margin: 0 0 10px; font-weight: 800; }
+  .feature p { color: var(--muted); margin: 0 0 14px; }
+  .feature ul { margin: 0; padding: 0; list-style: none; }
+  .feature li { position: relative; padding-left: 28px; margin: 8px 0; }
+  .feature li::before {
+    content: ""; position: absolute; left: 0; top: .45em; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--brand); opacity: .18;
+  }
+  .feature li::after {
+    content: ""; position: absolute; left: 5px; top: calc(.45em + 4px); width: 6px; height: 8px;
+    border: solid var(--brand); border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+
+
+  /* Privacy */
+  .privacy { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .pill { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+  .pill b { display: block; font-size: 17px; margin-bottom: 4px; }
+  .pill span { font-size: 15px; color: var(--muted); }
+
+  footer { padding: 40px 0 56px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  footer .links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 16px; font-weight: 700; font-size: 15px; }
+  footer p { margin: 6px 0; }
+
+  @media (max-width: 860px) {
+    .hero .wrap, .feature { grid-template-columns: 1fr; gap: 32px; }
+    .feature.flip .copy { order: 0; }
+    .hero { padding-top: 16px; }
+    .hero-shot { max-width: 320px; }
+    .stats, .privacy { grid-template-columns: repeat(2, 1fr); }
+    section.block { padding: 44px 0; }
+  }
+  @media (max-width: 420px) {
+    .brand span { display: none; }
+    .stat b { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/icon.png" alt="" width="36" height="36"><span>Teoriakoe FI</span></a>
+    <nav class="lang" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="fi" aria-pressed="false">FI</button>
+      <button type="button" data-lang="sv" aria-pressed="false">SV</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow" data-i18n="eyebrow">Finnish driving licence · Category B</span>
+        <h1 data-i18n="h1">Pass the Finnish theory test with confidence</h1>
+        <p class="lead" data-i18n="lead">Learn all 373 Finnish road signs, practise with 989 questions and traffic images, and take a full mock exam – in English, Finnish or Swedish, completely offline.</p>
+        <div class="badges">
+          <span class="badge" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.72-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.41 1.2-2.47-.03-.01-2.3-.88-2.32-3.5zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
+            <span><small data-i18n="soonShort">Coming soon on the</small>App Store</span>
+          </span>
+          <span class="badge" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 2.3c-.2.2-.3.6-.3 1v17.4c0 .4.1.8.3 1l9.7-9.7L4.2 2.3zm10.8 10.8 2.6 2.6-11.4 6.5c-.4.2-.8.2-1 .1l9.8-9.2zm0-2.2L5.2 1.7c.3-.1.6 0 1 .2l11.4 6.5-2.6 2.5zm3.6-1.9 3 1.7c.9.5.9 1.4 0 1.9l-3 1.7-2.8-2.7 2.8-2.6z"/></svg>
+            <span><small data-i18n="soonShort">Coming soon on</small>Google Play</span>
+          </span>
+        </div>
+        <p class="soon" data-i18n="free">Free · No account · No ads · No in-app purchases</p>
+      </div>
+      <div class="hero-shot"><img src="img/home.jpg" width="540" height="960" alt="Teoriakoe FI home screen"></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>373</b><span data-i18n="statSigns">road signs</span></div>
+      <div class="stat"><b>989</b><span data-i18n="statQuestions">practice questions</span></div>
+      <div class="stat"><b>1,247</b><span data-i18n="statImages">traffic images</span></div>
+      <div class="stat"><b>3</b><span data-i18n="statLangs">languages</span></div>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="wrap">
+      <h2 data-i18n="featTitle">Everything for the theory test in one app</h2>
+      <p class="section-lead" data-i18n="featLead">Made for everyone learning to drive in Finland – including newcomers learning Finnish traffic rules in a new language. Switch the language at any time, and view the original Finnish text of any translated question.</p>
+
+      <div class="feature">
+        <div class="copy">
+          <h3 data-i18n="f1Title">Mock exam built to the official structure</h3>
+          <p data-i18n="f1Text">Practise under real conditions before the actual test.</p>
+          <ul>
+            <li data-i18n="f1a">70 tasks in three parts, under one 30-minute clock</li>
+            <li data-i18n="f1b">15 category B questions, 50 traffic situations and 5 hazard perception tasks</li>
+            <li data-i18n="f1c">Each part is passed or failed on its own</li>
+            <li data-i18n="f1d">Review every answer afterwards</li>
+          </ul>
+        </div>
+        <div class="shot"><img src="img/mock_exam.jpg" width="540" height="960" alt="Mock exam screen" loading="lazy"></div>
+      </div>
+
+      <div class="feature flip">
+        <div class="copy">
+          <h3 data-i18n="f2Title">989 practice questions with explanations</h3>
+          <p data-i18n="f2Text">Practice questions in the style of the theory test, from Autoliitto’s public theory test practice, used with permission.</p>
+          <ul>
+            <li data-i18n="f2a">289 rule questions, 126 hazard perception tasks and 574 picture tasks</li>
+            <li data-i18n="f2b">1,247 traffic images – open them full screen and zoom in</li>
+            <li data-i18n="f2c">14 theory topics with study summaries and 112 explained questions</li>
+            <li data-i18n="f2d">Weak spots: practise again the questions you got wrong</li>
+          </ul>
+        </div>
+        <div class="shot"><img src="img/practice_explained.jpg" width="540" height="960" alt="Practice question with explanation" loading="lazy"></div>
+      </div>
+
+      <div class="feature">
+        <div class="copy">
+          <h3 data-i18n="f3Title">All 373 Finnish road signs</h3>
+          <p data-i18n="f3Text">Every official sign and variant under the Road Traffic Act 729/2018, in the nine families A–I.</p>
+          <ul>
+            <li data-i18n="f3a">Official sign code and name in English, Finnish and Swedish</li>
+            <li data-i18n="f3b">Explanations for the 164 signs in families A–E</li>
+            <li data-i18n="f3c">Search by name or code, and learn with flashcards</li>
+          </ul>
+        </div>
+        <div class="shot"><img src="img/road_signs.jpg" width="540" height="960" alt="Road signs catalogue" loading="lazy"></div>
+      </div>
+
+      <div class="feature flip">
+        <div class="copy">
+          <h3 data-i18n="f4Title">Play &amp; Learn in a little city</h3>
+          <p data-i18n="f4Text">Drive a little blue car through an illustrated city seen from above and decide what to do next. Every decision comes with an explanation and the rule behind it – and there is no countdown.</p>
+          <ul>
+            <li data-i18n="f4a">140 traffic situations across 8 neighbourhoods</li>
+            <li data-i18n="f4b">Traffic lights, priority, pedestrians, cyclists, lanes, parking and more</li>
+          </ul>
+        </div>
+        <div class="shot"><img src="img/play_learn.jpg" width="540" height="960" alt="Play and Learn city map" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap">
+      <div class="feature">
+        <div class="copy">
+          <h2 data-i18n="progTitle">Track your progress</h2>
+          <p data-i18n="progLead">XP, levels and a day streak keep you going. See your accuracy and mastery for each sign family, and your recent results.</p>
+        </div>
+        <div class="shot"><img src="img/result.jpg" width="540" height="960" alt="Exam result screen" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <h2 data-i18n="privTitle">Private by design</h2>
+      <p class="section-lead" data-i18n="privLead">The app makes no network requests and collects no data. Your progress stays on your device.</p>
+      <div class="privacy">
+        <div class="pill"><b data-i18n="p1">Fully offline</b><span data-i18n="p1t">Signs, questions and images are all inside the app.</span></div>
+        <div class="pill"><b data-i18n="p2">No account</b><span data-i18n="p2t">Open the app and start learning.</span></div>
+        <div class="pill"><b data-i18n="p3">No ads, no tracking</b><span data-i18n="p3t">No analytics and no third-party SDKs.</span></div>
+        <div class="pill"><b data-i18n="p4">Light &amp; dark mode</b><span data-i18n="p4t">Comfortable to study day or night.</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="support.html" data-i18n="support">Support</a>
+      <a href="privacy-policy.html" data-i18n="privacy">Privacy Policy</a>
+      <a href="mailto:metinozetle@gmail.com">metinozetle@gmail.com</a>
+    </div>
+    <p data-i18n="src1">Road sign data: sign images published by Väylävirasto (Finnish Transport Infrastructure Agency) and the Road Traffic Act 729/2018.</p>
+    <p data-i18n="src2">Practice questions and images: Autoliiton Ajokoulu (Autoliitto ry), used with permission.</p>
+    <p data-i18n="disc">Teoriakoe FI is an independent app. It is not affiliated with or endorsed by Traficom, Ajovarma or the Finnish government. The practice questions are not the actual exam questions.</p>
+    <p>© 2026 Salih Enes Metin</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var T = {
+    fi: {
+      title: "Teoriakoe FI – Ajokortin teoriakoe",
+      eyebrow: "Ajokortti · B-luokka",
+      h1: "Läpäise teoriakoe varmemmin",
+      lead: "Opettele kaikki 373 liikennemerkkiä, harjoittele 989 tehtävällä ja liikennekuvilla ja tee täysi harjoituskoe – suomeksi, ruotsiksi tai englanniksi ja kokonaan ilman verkkoyhteyttä.",
+      soonShort: "Tulossa pian",
+      free: "Ilmainen · Ei käyttäjätiliä · Ei mainoksia · Ei sovelluksen sisäisiä ostoja",
+      statSigns: "liikennemerkkiä", statQuestions: "harjoitustehtävää", statImages: "liikennekuvaa", statLangs: "kieltä",
+      featTitle: "Kaikki teoriakokeeseen yhdessä sovelluksessa",
+      featLead: "Tarkoitettu kaikille, jotka suorittavat ajokorttia Suomessa – myös niille, jotka opettelevat suomalaisia liikennesääntöjä uudella kielellä. Kielen voi vaihtaa milloin tahansa, ja käännetyistä kysymyksistä näet myös alkuperäisen suomenkielisen tekstin.",
+      f1Title: "Harjoituskoe virallisen koerakenteen mukaan",
+      f1Text: "Harjoittele todellisissa olosuhteissa ennen varsinaista koetta.",
+      f1a: "70 tehtävää kolmessa osiossa, yhteinen 30 minuutin aika",
+      f1b: "15 B-luokan kysymystä, 50 liikennetilannetehtävää ja 5 riskientunnistustehtävää",
+      f1c: "Jokainen osio hyväksytään tai hylätään erikseen",
+      f1d: "Kokeen jälkeen voit käydä kaikki vastaukset läpi",
+      f2Title: "989 harjoitustehtävää selityksineen",
+      f2Text: "Teoriakokeen tyylisiä harjoituskysymyksiä Autoliiton julkisesta teoriakoeharjoittelusta, käytetty luvalla.",
+      f2a: "289 sääntökysymystä, 126 riskientunnistustehtävää ja 574 kuvatehtävää",
+      f2b: "1 247 liikennekuvaa – avaa kuva koko näytölle ja suurenna",
+      f2c: "14 teoria-aihetta, opiskeluyhteenvedot ja 112 selitettyä kysymystä",
+      f2d: "Heikot kohdat: kertaa kysymykset, joihin vastasit väärin",
+      f3Title: "Kaikki 373 liikennemerkkiä",
+      f3Text: "Jokainen tieliikennelain 729/2018 mukainen virallinen liikennemerkki muunnelmineen, yhdeksässä ryhmässä A–I.",
+      f3a: "Virallinen merkkitunnus sekä nimi suomeksi, ruotsiksi ja englanniksi",
+      f3b: "Selitykset ryhmien A–E 164 merkille",
+      f3c: "Haku nimellä tai tunnuksella sekä muistikortit",
+      f4Title: "Pelaa ja opi pienessä kaupungissa",
+      f4Text: "Ohjaa pientä sinistä autoa ylhäältä kuvatussa piirroskaupungissa ja päätä, mitä teet seuraavaksi. Jokaisesta ratkaisusta saat selityksen ja sen taustalla olevan säännön – eikä aikarajaa ole.",
+      f4a: "140 liikennetilannetta kahdeksassa kaupunginosassa",
+      f4b: "Liikennevalot, etuajo-oikeus, jalankulkijat, pyöräilijät, kaistat, pysäköinti ja paljon muuta",
+      progTitle: "Seuraa edistymistäsi",
+      progLead: "XP-pisteet, tasot ja päiväputki pitävät motivaation yllä. Näet osumatarkkuutesi ja osaamisesi merkkiryhmittäin sekä viimeisimmät tuloksesi.",
+      privTitle: "Yksityisyys ensin",
+      privLead: "Sovellus ei käytä verkkoyhteyttä eikä kerää mitään tietoja. Edistymisesi tallentuu vain omaan laitteeseesi.",
+      p1: "Toimii ilman verkkoa", p1t: "Merkit, kysymykset ja kuvat ovat sovelluksen sisällä.",
+      p2: "Ei käyttäjätiliä", p2t: "Avaa sovellus ja aloita opiskelu.",
+      p3: "Ei mainoksia eikä seurantaa", p3t: "Ei analytiikkaa eikä kolmansien osapuolten SDK:ita.",
+      p4: "Vaalea ja tumma teema", p4t: "Mukava opiskella päivällä ja illalla.",
+      support: "Tuki", privacy: "Tietosuojakäytäntö",
+      src1: "Liikennemerkkitiedot: Väyläviraston julkaisemat merkkikuvat ja tieliikennelaki 729/2018.",
+      src2: "Harjoituskysymykset ja kuvat: Autoliiton Ajokoulu (Autoliitto ry), käytetty luvalla.",
+      disc: "Teoriakoe FI on itsenäinen sovellus. Se ei ole sidoksissa Traficomiin, Ajovarmaan tai Suomen valtioon, eivätkä ne ole hyväksyneet sitä. Harjoituskysymykset eivät ole varsinaisen teoriakokeen kysymyksiä."
+    },
+    sv: {
+      title: "Teoriakoe FI – Teoriprov för körkort",
+      eyebrow: "Körkort i Finland · Kategori B",
+      h1: "Klara teoriprovet med större säkerhet",
+      lead: "Lär dig alla 373 vägmärken, öva med 989 uppgifter och trafikbilder och gör ett fullständigt provtest – på svenska, finska eller engelska, helt utan nätförbindelse.",
+      soonShort: "Kommer snart på",
+      free: "Gratis · Inget konto · Inga annonser · Inga köp i appen",
+      statSigns: "vägmärken", statQuestions: "övningsuppgifter", statImages: "trafikbilder", statLangs: "språk",
+      featTitle: "Allt för teoriprovet i en app",
+      featLead: "Gjord för alla som tar körkort i Finland – också för dig som lär dig de finländska trafikreglerna på ett nytt språk. Byt språk när som helst och visa den finska originaltexten för översatta frågor.",
+      f1Title: "Provtest enligt den officiella strukturen",
+      f1Text: "Öva under verkliga förhållanden före det riktiga provet.",
+      f1a: "70 uppgifter i tre delar, med en gemensam tid på 30 minuter",
+      f1b: "15 frågor för kategori B, 50 trafiksituationer och 5 riskidentifieringsuppgifter",
+      f1c: "Varje del godkänns eller underkänns för sig",
+      f1d: "Gå igenom alla svar efteråt",
+      f2Title: "989 övningsuppgifter med förklaringar",
+      f2Text: "Övningsfrågor i teoriprovets stil, från Autoliittos offentliga övningsprov, används med tillstånd.",
+      f2a: "289 regelfrågor, 126 riskidentifieringsuppgifter och 574 bilduppgifter",
+      f2b: "1 247 trafikbilder – öppna dem i helskärm och zooma in",
+      f2c: "14 teoriavsnitt med sammanfattningar och 112 förklarade frågor",
+      f2d: "Svaga punkter: öva på nytt på frågorna du svarade fel på",
+      f3Title: "Alla 373 finländska vägmärken",
+      f3Text: "Varje officiellt vägmärke med varianter enligt vägtrafiklagen 729/2018, i de nio grupperna A–I.",
+      f3a: "Officiell märkeskod och namn på svenska, finska och engelska",
+      f3b: "Förklaringar till de 164 märkena i grupperna A–E",
+      f3c: "Sök på namn eller kod och lär dig med flashkort",
+      f4Title: "Spela och lär i en liten stad",
+      f4Text: "Styr en liten blå bil genom en tecknad stad sedd ovanifrån och välj vad du gör härnäst. Varje beslut får en förklaring och regeln bakom det – och det finns ingen tidsgräns.",
+      f4a: "140 trafiksituationer i åtta stadsdelar",
+      f4b: "Trafiksignaler, förkörsrätt, gående, cyklister, körfält, parkering med mera",
+      progTitle: "Följ dina framsteg",
+      progLead: "XP, nivåer och dagar i rad håller motivationen uppe. Se din träffsäkerhet och behärskning per märkesgrupp och dina senaste resultat.",
+      privTitle: "Integritet från början",
+      privLead: "Appen använder inte nätet och samlar inte in några uppgifter. Dina framsteg sparas bara på din egen enhet.",
+      p1: "Helt offline", p1t: "Märken, frågor och bilder finns i appen.",
+      p2: "Inget konto", p2t: "Öppna appen och börja lära dig.",
+      p3: "Inga annonser, ingen spårning", p3t: "Ingen analys och inga SDK:er från tredje part.",
+      p4: "Ljust och mörkt läge", p4t: "Bekvämt att plugga dag som natt.",
+      support: "Support", privacy: "Integritetspolicy",
+      src1: "Uppgifter om vägmärken: märkesbilder publicerade av Trafikledsverket (Väylävirasto) och vägtrafiklagen 729/2018.",
+      src2: "Övningsfrågor och bilder: Autoliiton Ajokoulu (Autoliitto ry), används med tillstånd.",
+      disc: "Teoriakoe FI är en fristående app. Den är inte knuten till eller godkänd av Traficom, Ajovarma eller finska staten. Övningsfrågorna är inte de egentliga provfrågorna."
+    }
+  };
+
+  var nodes = document.querySelectorAll("[data-i18n]");
+  var en = { title: document.title };
+  nodes.forEach(function (n) { en[n.getAttribute("data-i18n")] = n.textContent; });
+  T.en = en;
+
+  // The Google Play badge reads "Coming soon on"; the App Store one "Coming soon on the".
+  var soonEn = ["Coming soon on the", "Coming soon on"];
+
+  function apply(lang) {
+    var d = T[lang] || T.en;
+    document.documentElement.lang = lang;
+    document.title = d.title;
+    var i = 0;
+    nodes.forEach(function (n) {
+      var k = n.getAttribute("data-i18n");
+      if (k === "soonShort") { n.textContent = lang === "en" ? soonEn[i++] : d.soonShort; return; }
+      if (d[k]) n.textContent = d[k];
+    });
+    document.querySelectorAll("nav.lang button").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
+    });
+    var sup = document.querySelector('footer a[href^="support"]');
+    var pri = document.querySelector('footer a[href^="privacy"]');
+    var hash = lang === "en" ? "" : "#" + lang;
+    sup.href = "support.html" + hash;
+    pri.href = "privacy-policy.html" + hash;
+  }
+
+  function pick() {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (q && T[q]) return q;
+    try { var s = localStorage.getItem("teoriakoe-lang"); if (s && T[s]) return s; } catch (e) {}
+    var nav = (navigator.language || "en").slice(0, 2).toLowerCase();
+    return T[nav] ? nav : "en";
+  }
+
+  document.querySelectorAll("nav.lang button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.getAttribute("data-lang");
+      apply(l);
+      try { localStorage.setItem("teoriakoe-lang", l); } catch (e) {}
+    });
+  });
+
+  apply(pick());
+})();
+</script>
+</body>
+</html>
