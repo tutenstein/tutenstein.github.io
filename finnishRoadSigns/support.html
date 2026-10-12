@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Teoriakoe FI – Support</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1d2433;
+    --muted: #5b6475;
+    --accent: #1f5fbf;
+    --card: #f3f6fb;
+    --line: #dde3ee;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12161f;
+      --text: #e7ebf3;
+      --muted: #a3acbd;
+      --accent: #7fb0ff;
+      --card: #1b2130;
+      --line: #2c3446;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 24px 16px 64px; }
+  nav.lang { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  nav.lang a {
+    padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px;
+    color: var(--accent); text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+  h1 { font-size: 28px; line-height: 1.25; margin: 0 0 4px; }
+  h2 { font-size: 20px; margin: 32px 0 8px; }
+  p, li { overflow-wrap: anywhere; }
+  .lead { color: var(--muted); margin: 0 0 16px; }
+  .contact {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 16px; margin: 16px 0;
+  }
+  details { border-bottom: 1px solid var(--line); padding: 10px 0; }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { margin: 8px 0 4px; }
+  .small { color: var(--muted); font-size: 15px; }
+  section + section { border-top: 1px solid var(--line); margin-top: 48px; padding-top: 32px; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: 14px; margin-top: 48px; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="lang" aria-label="Language">
+    <a href="#en" hreflang="en">English</a>
+    <a href="#fi" hreflang="fi">Suomi</a>
+    <a href="#sv" hreflang="sv">Svenska</a>
+  </nav>
+
+  <!-- ===================================================== English -->
+  <section id="en" lang="en">
+    <h1>Teoriakoe FI – Support</h1>
+    <p class="lead">Help for the Finnish driving licence theory test app.</p>
+
+    <div class="contact">
+      Questions, feedback or found a mistake? Email <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a>. We answer in English, Finnish or Swedish.
+    </div>
+
+    <h2>Frequently asked questions</h2>
+    <details>
+      <summary>Does the app need an internet connection?</summary>
+      <p>No. All road signs, questions and images are stored in the app, and it works fully offline.</p>
+    </details>
+    <details>
+      <summary>Do I need an account? Does it cost anything?</summary>
+      <p>No account is needed. The app has no ads and no in-app purchases.</p>
+    </details>
+    <details>
+      <summary>Are these the questions of the real theory test?</summary>
+      <p>No. They are practice questions in the style of the theory test, from Autoliitto’s public theory test practice (Autoliiton Ajokoulu), used with permission. The mock exam follows the official category B test structure: 70 tasks in three parts under one 30-minute clock.</p>
+    </details>
+    <details>
+      <summary>Which licence category does the app cover?</summary>
+      <p>Category B (car).</p>
+    </details>
+    <details>
+      <summary>How do I change the language?</summary>
+      <p>Open Settings (the gear icon at the top of the Home tab) and choose English, Suomi or Svenska under Language.</p>
+    </details>
+    <details>
+      <summary>Why are some questions translated?</summary>
+      <p>The practice questions are originally written in Finnish and have been translated into English and Swedish. You can always view the original Finnish text, which is the version the translation is based on.</p>
+    </details>
+    <details>
+      <summary>How do I reset my progress?</summary>
+      <p>Open Settings and tap Reset progress. This permanently deletes your learned signs, results and streak.</p>
+    </details>
+    <details>
+      <summary>Can I move my progress to a new phone?</summary>
+      <p>There is no account or cloud sync. Your progress may come along if you restore your phone from a device backup, but this is handled by your phone’s operating system and cannot be guaranteed.</p>
+    </details>
+    <details>
+      <summary>I found a mistake in a question, translation or sign</summary>
+      <p>Thank you! Email us at <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a> and tell us the sign code or the question text, and what you think is wrong.</p>
+    </details>
+    <details>
+      <summary>What data does the app collect?</summary>
+      <p>None. See the <a href="privacy-policy.html">privacy policy</a>.</p>
+    </details>
+
+    <h2>Sources and disclaimer</h2>
+    <p class="small">Road sign data: sign images published by Väylävirasto (Finnish Transport Infrastructure Agency) and the Road Traffic Act 729/2018.<br>
+    Practice questions and images: Autoliiton Ajokoulu (Autoliitto ry), used with permission.<br>
+    Teoriakoe FI is an independent app. It is not affiliated with or endorsed by Traficom, Ajovarma or the Finnish government.</p>
+  </section>
+
+  <!-- ===================================================== Suomi -->
+  <section id="fi" lang="fi">
+    <h1>Teoriakoe FI – Tuki</h1>
+    <p class="lead">Ohjeita ajokortin teoriakoesovelluksen käyttöön.</p>
+
+    <div class="contact">
+      Kysyttävää, palautetta tai löysitkö virheen? Lähetä sähköpostia osoitteeseen <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a>. Vastaamme suomeksi, ruotsiksi tai englanniksi.
+    </div>
+
+    <h2>Usein kysyttyä</h2>
+    <details>
+      <summary>Tarvitseeko sovellus verkkoyhteyden?</summary>
+      <p>Ei. Kaikki liikennemerkit, kysymykset ja kuvat ovat sovelluksen sisällä, ja se toimii kokonaan ilman verkkoyhteyttä.</p>
+    </details>
+    <details>
+      <summary>Tarvitsenko käyttäjätilin? Maksaako sovellus jotain?</summary>
+      <p>Käyttäjätiliä ei tarvita. Sovelluksessa ei ole mainoksia eikä sovelluksen sisäisiä ostoja.</p>
+    </details>
+    <details>
+      <summary>Ovatko nämä oikean teoriakokeen kysymyksiä?</summary>
+      <p>Eivät. Ne ovat teoriakokeen tyylisiä harjoituskysymyksiä Autoliiton julkisesta teoriakoeharjoittelusta (Autoliiton Ajokoulu), ja niitä käytetään luvalla. Harjoituskoe noudattaa B-luokan virallista koerakennetta: 70 tehtävää kolmessa osiossa ja yhteinen 30 minuutin aika.</p>
+    </details>
+    <details>
+      <summary>Mitä ajokorttiluokkaa sovellus koskee?</summary>
+      <p>B-luokkaa (henkilöauto).</p>
+    </details>
+    <details>
+      <summary>Miten vaihdan kielen?</summary>
+      <p>Avaa Asetukset (rataskuvake Etusivu-välilehden yläreunassa) ja valitse kohdasta Kieli English, Suomi tai Svenska.</p>
+    </details>
+    <details>
+      <summary>Miksi osa kysymyksistä on käännetty?</summary>
+      <p>Harjoituskysymykset on alun perin kirjoitettu suomeksi, ja ne on käännetty englanniksi ja ruotsiksi. Alkuperäisen suomenkielisen tekstin näet aina.</p>
+    </details>
+    <details>
+      <summary>Miten nollaan edistymiseni?</summary>
+      <p>Avaa Asetukset ja valitse Nollaa edistyminen. Tämä poistaa pysyvästi opitut merkit, tulokset ja päiväputken.</p>
+    </details>
+    <details>
+      <summary>Voinko siirtää edistymiseni uuteen puhelimeen?</summary>
+      <p>Sovelluksessa ei ole käyttäjätiliä eikä pilvisynkronointia. Edistyminen voi siirtyä mukana, jos palautat puhelimen laitteen varmuuskopiosta, mutta sen hoitaa puhelimen käyttöjärjestelmä, eikä sitä voida taata.</p>
+    </details>
+    <details>
+      <summary>Löysin virheen kysymyksestä, käännöksestä tai merkistä</summary>
+      <p>Kiitos! Lähetä viesti osoitteeseen <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a> ja kerro merkin tunnus tai kysymyksen teksti sekä se, mikä mielestäsi on väärin.</p>
+    </details>
+    <details>
+      <summary>Mitä tietoja sovellus kerää?</summary>
+      <p>Ei mitään. Lue lisää <a href="privacy-policy.html#fi">tietosuojakäytännöstä</a>.</p>
+    </details>
+
+    <h2>Lähteet ja huomautus</h2>
+    <p class="small">Liikennemerkkitiedot: Väyläviraston julkaisemat merkkikuvat ja tieliikennelaki 729/2018.<br>
+    Harjoituskysymykset ja kuvat: Autoliiton Ajokoulu (Autoliitto ry), käytetty luvalla.<br>
+    Teoriakoe FI on itsenäinen sovellus. Se ei ole sidoksissa Traficomiin, Ajovarmaan tai Suomen valtioon, eivätkä ne ole hyväksyneet sitä.</p>
+  </section>
+
+  <!-- ===================================================== Svenska -->
+  <section id="sv" lang="sv">
+    <h1>Teoriakoe FI – Support</h1>
+    <p class="lead">Hjälp för appen för teoriprovet för körkort.</p>
+
+    <div class="contact">
+      Frågor, respons eller hittade du ett fel? Skicka e-post till <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a>. Vi svarar på svenska, finska eller engelska.
+    </div>
+
+    <h2>Vanliga frågor</h2>
+    <details>
+      <summary>Behöver appen nätförbindelse?</summary>
+      <p>Nej. Alla vägmärken, frågor och bilder finns i appen, och den fungerar helt utan nätförbindelse.</p>
+    </details>
+    <details>
+      <summary>Behöver jag ett konto? Kostar appen något?</summary>
+      <p>Du behöver inget konto. Appen har inga annonser och inga köp i appen.</p>
+    </details>
+    <details>
+      <summary>Är det här frågorna från det riktiga teoriprovet?</summary>
+      <p>Nej. Det är övningsfrågor i teoriprovets stil från Autoliittos offentliga övningsprov (Autoliiton Ajokoulu), som används med tillstånd. Provtestet följer den officiella strukturen för kategori B: 70 uppgifter i tre delar med en gemensam tid på 30 minuter.</p>
+    </details>
+    <details>
+      <summary>Vilken körkortskategori gäller appen?</summary>
+      <p>Kategori B (personbil).</p>
+    </details>
+    <details>
+      <summary>Hur byter jag språk?</summary>
+      <p>Öppna Inställningar (kugghjulsikonen högst upp på fliken Hem) och välj English, Suomi eller Svenska under Språk.</p>
+    </details>
+    <details>
+      <summary>Varför är en del frågor översatta?</summary>
+      <p>Övningsfrågorna är ursprungligen skrivna på finska och har översatts till svenska och engelska. Du kan alltid visa den finska originaltexten.</p>
+    </details>
+    <details>
+      <summary>Hur nollställer jag mina framsteg?</summary>
+      <p>Öppna Inställningar och tryck på Nollställ framsteg. Då raderas inlärda märken, resultat och dagar i rad permanent.</p>
+    </details>
+    <details>
+      <summary>Kan jag flytta mina framsteg till en ny telefon?</summary>
+      <p>Appen har inget konto och ingen molnsynkronisering. Framstegen kan följa med om du återställer telefonen från en säkerhetskopia, men det sköts av telefonens operativsystem och kan inte garanteras.</p>
+    </details>
+    <details>
+      <summary>Jag hittade ett fel i en fråga, en översättning eller ett märke</summary>
+      <p>Tack! Skicka e-post till <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a> och berätta märkeskoden eller frågans text och vad du tycker är fel.</p>
+    </details>
+    <details>
+      <summary>Vilka uppgifter samlar appen in?</summary>
+      <p>Inga. Läs mer i <a href="privacy-policy.html#sv">integritetspolicyn</a>.</p>
+    </details>
+
+    <h2>Källor och ansvarsfriskrivning</h2>
+    <p class="small">Uppgifter om vägmärken: märkesbilder publicerade av Trafikledsverket (Väylävirasto) och vägtrafiklagen 729/2018.<br>
+    Övningsfrågor och bilder: Autoliiton Ajokoulu (Autoliitto ry), används med tillstånd.<br>
+    Teoriakoe FI är en fristående app. Den är inte knuten till eller godkänd av Traficom, Ajovarma eller finska staten.</p>
+  </section>
+
+  <footer>Teoriakoe FI · © 2026 DEVELOPER_NAME · <a href="privacy-policy.html">Privacy Policy / Tietosuojakäytäntö / Integritetspolicy</a></footer>
+</main>
+</body>
+</html>
