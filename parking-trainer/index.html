@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0e1628">
+<title>Parking Trainer – Learn to park like a pro</title>
+<meta name="description" content="Learn bay, parallel and reverse parking the way a driving instructor teaches it: 13 lessons with a real steering wheel, pedals and live mirrors. Works offline.">
+<link rel="icon" type="image/png" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<meta property="og:title" content="Parking Trainer – Learn to park like a pro">
+<meta property="og:description" content="13 parking lessons with a real steering wheel, pedals and live mirrors. Learn with a coach, then pass the test.">
+<meta property="og:image" content="https://tutenstein.github.io/parking-trainer/img/og.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b1222;
+    --bg-2: #111a2e;
+    --card: #16213a;
+    --line: #24314f;
+    --text: #eef2fa;
+    --muted: #a6b0c6;
+    --yellow: #f5c84a;
+    --cyan: #34e0e6;
+    --teal: #2a9d94;
+    --red: #f47174;
+    --shadow: 0 18px 40px rgba(0, 0, 0, .45);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 18px/1.6 "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--cyan); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  .display {
+    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+    font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: 1;
+  }
+  .stripe {
+    height: 10px;
+    background: repeating-linear-gradient(-55deg, var(--yellow) 0 22px, transparent 22px 44px);
+    opacity: .9;
+  }
+
+  /* Top bar */
+  header.top { padding: 18px 0; }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; font-size: 26px; }
+  .brand img { width: 44px; height: 44px; border-radius: 11px; }
+  .brand b { color: var(--yellow); font-weight: inherit; }
+  .top nav { display: flex; gap: 20px; font-weight: 600; font-size: 16px; }
+  .top nav a { color: var(--muted); text-decoration: none; }
+  .top nav a:hover { color: var(--text); }
+
+  /* Hero */
+  .hero { padding: 40px 0 64px; text-align: center; }
+  .hero h1 { font-size: clamp(56px, 11vw, 120px); margin: 0 0 18px; }
+  .hero h1 b { color: var(--yellow); font-weight: inherit; }
+  .hero .tag { font-size: clamp(22px, 3.4vw, 32px); color: var(--cyan); margin: 0 0 16px; }
+  .hero p.lead { font-size: 20px; color: var(--muted); max-width: 40em; margin: 0 auto 30px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 12px;
+    background: var(--text); color: var(--bg); font-weight: 600; font-size: 16px; line-height: 1.2; text-align: left;
+  }
+  .badge small { display: block; font-size: 11px; opacity: .7; }
+  .badge svg { width: 22px; height: 22px; fill: currentColor; flex: none; }
+  .platforms { margin-top: 14px; font-size: 15px; color: var(--muted); }
+  .hero-shot { margin: 48px auto 0; max-width: 980px; border-radius: 22px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px 16px; text-align: center; }
+  .stat b { display: block; font-size: 52px; color: var(--yellow); }
+  .stat span { font-size: 15px; color: var(--muted); font-weight: 600; }
+
+  section.block { padding: 72px 0; }
+  section.alt { background: var(--bg-2); }
+  h2 { font-size: clamp(40px, 6vw, 60px); margin: 0 0 14px; }
+  h2 em { color: var(--yellow); font-style: normal; }
+  .section-lead { color: var(--muted); margin: 0 0 40px; max-width: 42em; font-size: 19px; }
+
+  /* Lessons */
+  .lessons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .lesson-card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+  .lesson-card .inner { padding: 22px 22px 24px; }
+  .lesson-card h3 { font-size: 32px; margin: 0 0 4px; }
+  .lesson-card .count { color: var(--cyan); font-weight: 600; font-size: 15px; margin-bottom: 14px; }
+  .lesson-card ul { margin: 0; padding: 0; list-style: none; }
+  .lesson-card li { padding: 8px 0; border-top: 1px solid var(--line); color: var(--text); font-size: 17px; }
+  .lesson-card li:first-child { border-top: 0; }
+
+  /* Feature rows */
+  .feature { display: grid; grid-template-columns: 1fr 1.25fr; gap: 48px; align-items: center; }
+  .feature + .feature { margin-top: 80px; }
+  .feature.flip .copy { order: 2; }
+  .feature .shot { border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); }
+  .feature h3 { font-size: 42px; margin: 0 0 14px; }
+  .feature h3 em { color: var(--yellow); font-style: normal; }
+  .feature p { color: var(--muted); margin: 0 0 16px; }
+  .feature ul { margin: 0; padding: 0; list-style: none; }
+  .feature li { position: relative; padding-left: 30px; margin: 10px 0; }
+  .feature li::before {
+    content: ""; position: absolute; left: 0; top: .32em; width: 18px; height: 18px; border-radius: 50%;
+    background: rgba(52, 224, 230, .16);
+  }
+  .feature li::after {
+    content: ""; position: absolute; left: 6px; top: calc(.32em + 4px); width: 6px; height: 9px;
+    border: solid var(--cyan); border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+  .stack { display: grid; gap: 16px; }
+
+  /* Cameras strip */
+  .cams { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cams figure { margin: 0; }
+  .cams img { border-radius: 16px; border: 1px solid var(--line); box-shadow: var(--shadow); }
+  .cams figcaption { margin-top: 12px; font-size: 26px; }
+  .cams figcaption span { display: block; font-family: "Barlow", sans-serif; font-weight: 500; text-transform: none; font-size: 16px; color: var(--muted); letter-spacing: 0; margin-top: 4px; line-height: 1.4; }
+
+  /* Privacy */
+  .pills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .pill { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
+  .pill b { display: block; font-size: 28px; color: var(--text); margin-bottom: 6px; }
+  .pill span { color: var(--muted); font-size: 16px; }
+
+  .note { color: var(--muted); font-size: 15px; margin-top: 28px; }
+
+  footer { padding: 44px 0 60px; color: var(--muted); font-size: 15px; }
+  footer .links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-bottom: 14px; font-weight: 600; font-size: 16px; }
+  footer p { margin: 6px 0; }
+
+  @media (max-width: 900px) {
+    .feature, .feature.flip { grid-template-columns: 1fr; gap: 28px; }
+    .feature.flip .copy { order: 0; }
+    .lessons { grid-template-columns: 1fr; }
+    .cams { grid-template-columns: 1fr; gap: 28px; }
+    .stats, .pills { grid-template-columns: repeat(2, 1fr); }
+    section.block { padding: 56px 0; }
+    .top nav { display: none; }
+  }
+  @media (max-width: 420px) {
+    .stat b { font-size: 42px; }
+    .hero p.lead { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand display" href="#"><img src="img/icon.png" alt="" width="44" height="44"><span>Parking <b>Trainer</b></span></a>
+    <nav aria-label="Sections">
+      <a href="#lessons">Lessons</a>
+      <a href="#cockpit">Cockpit</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1 class="display">Parking <b>Trainer</b></h1>
+      <p class="tag display">Learn to park like a pro</p>
+      <p class="lead">Lessons taught the way an instructor would: a reference point to stop at, a wheel position, the mirror to check — and the moment to straighten up.</p>
+      <div class="badges">
+        <span class="badge" aria-disabled="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.72-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.41 1.2-2.47-.03-.01-2.3-.88-2.32-3.5zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
+          <span><small>Coming soon on the</small>App Store</span>
+        </span>
+        <span class="badge" aria-disabled="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 2.3c-.2.2-.3.6-.3 1v17.4c0 .4.1.8.3 1l9.7-9.7L4.2 2.3zm10.8 10.8 2.6 2.6-11.4 6.5c-.4.2-.8.2-1 .1l9.8-9.2zm0-2.2L5.2 1.7c.3-.1.6 0 1 .2l11.4 6.5-2.6 2.5zm3.6-1.9 3 1.7c.9.5.9 1.4 0 1.9l-3 1.7-2.8-2.7 2.8-2.6z"/></svg>
+          <span><small>Coming soon on</small>Google Play</span>
+        </span>
+      </div>
+      <p class="platforms">iPhone · iPad · Android · English, Türkçe, Deutsch, Français, Español</p>
+      <div class="hero-shot"><img src="img/menu.jpg" width="1280" height="720" alt="Parking Trainer lesson menu with bay parking, parallel parking and road manoeuvres"></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b class="display">13</b><span>lessons</span></div>
+      <div class="stat"><b class="display">3</b><span>stars per test</span></div>
+      <div class="stat"><b class="display">3</b><span>camera views</span></div>
+      <div class="stat"><b class="display">5</b><span>languages</span></div>
+    </div>
+  </div>
+
+  <section class="block" id="lessons">
+    <div class="wrap">
+      <h2 class="display">Thirteen <em>lessons</em></h2>
+      <p class="section-lead">From your first bay to a tight parallel space — every manoeuvre a driving test can ask for, broken into steps you can repeat.</p>
+      <div class="lessons">
+        <div class="lesson-card">
+          <div class="stripe"></div>
+          <div class="inner">
+            <h3 class="display">Bay parking</h3>
+            <div class="count">7 lessons</div>
+            <ul>
+              <li>Front-in bay parking</li>
+              <li>Reverse with the 1 m mirror method</li>
+              <li>Reverse with the shoulder method</li>
+              <li>Angled bays</li>
+              <li>Into a garage</li>
+              <li>Drive-through bays</li>
+              <li>Reversing out again</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lesson-card">
+          <div class="stripe"></div>
+          <div class="inner">
+            <h3 class="display">Parallel parking</h3>
+            <div class="count">4 lessons</div>
+            <ul>
+              <li>The classic 45° method</li>
+              <li>The angle-out method</li>
+              <li>Nose-in for tight spaces</li>
+              <li>Pulling out again</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lesson-card">
+          <div class="stripe"></div>
+          <div class="inner">
+            <h3 class="display">Road manoeuvres</h3>
+            <div class="count">2 lessons</div>
+            <ul>
+              <li>Turn in the road in three moves</li>
+              <li>Reverse straight along the kerb and move off</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap">
+      <div class="feature">
+        <div class="copy">
+          <h3 class="display">Learn, <em>then test</em></h3>
+          <p>Every lesson has a coach with guide lines and a demo that drives it for you — watch the car, the wheel and the mirrors. Then take the test with no help and earn up to three stars.</p>
+          <ul>
+            <li>Step-by-step coaching: when to stop, where to turn, when to straighten</li>
+            <li>A demo for every lesson</li>
+            <li>Scored on lines, angle, direction and mirror checks</li>
+            <li>Practise with the space on your left or your right</li>
+          </ul>
+        </div>
+        <div class="stack">
+          <div class="shot"><img src="img/bay.jpg" width="1280" height="720" alt="Coach step: full lock right, shown from above" loading="lazy"></div>
+          <div class="shot"><img src="img/result.jpg" width="1280" height="720" alt="Test result: three stars, score 100 out of 100" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="cockpit">
+    <div class="wrap">
+      <div class="feature flip">
+        <div class="copy">
+          <h3 class="display">A real <em>cockpit</em></h3>
+          <p>The controls work like a car's, so the habits you build here carry over to the road.</p>
+          <ul>
+            <li>A steering wheel you turn with your finger — 2¾ turns lock to lock, and it stays where you leave it</li>
+            <li>Analog gas and brake pedals, an automatic P R N D selector and a handbrake</li>
+            <li>Live door mirrors that tilt down in reverse</li>
+            <li>Tap a mirror to check it — reversing without a mirror check costs points, just like a real test</li>
+          </ul>
+        </div>
+        <div class="shot"><img src="img/mirrors.jpg" width="1280" height="720" alt="Check your mirrors step with live door mirrors, steering wheel and pedals" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap">
+      <h2 class="display">See it <em>from every angle</em></h2>
+      <p class="section-lead">Switch cameras at any time. From the driver's seat you can even look over your shoulder.</p>
+      <div class="cams">
+        <figure>
+          <img src="img/bay.jpg" width="1280" height="720" alt="Overhead camera" loading="lazy">
+          <figcaption class="display">Overhead<span>See the lines, the space and every corner of the car.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="img/driver.jpg" width="1280" height="720" alt="Driver's seat camera" loading="lazy">
+          <figcaption class="display">Driver's seat<span>Learn the reference points you will really use.</span></figcaption>
+        </figure>
+        <figure>
+          <img src="img/chase.jpg" width="1280" height="720" alt="Chase camera" loading="lazy">
+          <figcaption class="display">Chase<span>Follow the car from behind as it moves.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <h2 class="display">Honest <em>physics</em></h2>
+      <p class="section-lead">The car is a low-speed model that behaves like a real car at parking speed, so what works here works on the road.</p>
+      <div class="pills">
+        <div class="pill"><b class="display">Offline</b><span>Everything runs on your device.</span></div>
+        <div class="pill"><b class="display">No account</b><span>Open the app and start the first lesson.</span></div>
+        <div class="pill"><b class="display">No data collection</b><span>Your results stay on your device.</span></div>
+        <div class="pill"><b class="display">5 languages</b><span>English, Turkish, German, French and Spanish.</span></div>
+      </div>
+      <p class="note">Reference points differ from car to car — find your own with an instructor.</p>
+    </div>
+  </section>
+</main>
+
+<div class="stripe"></div>
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:metinozetle@gmail.com">metinozetle@gmail.com</a>
+    </div>
+    <p>© 2026 Salih Enes Metin</p>
+  </div>
+</footer>
+
+</body>
+</html>
