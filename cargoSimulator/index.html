@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#edf0e8">
+<title>Cargo Simulator – Run a cozy parcel branch</title>
+<meta name="description" content="Run a cozy neighborhood parcel branch: unload the morning truck, sort parcels, serve the counter, send couriers out and grow your branch. Works offline on iPhone and Android.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/icon.png">
+<meta property="og:title" content="Cargo Simulator – Run a cozy parcel branch">
+<meta property="og:description" content="Sort parcels, serve the counter, send couriers out and grow your neighborhood branch.">
+<meta property="og:image" content="https://tutenstein.github.io/cargoSimulator/img/og.jpg">
+<meta property="og:type" content="website">
+<style>
+  @font-face {
+    font-family: 'Nunito Sans Variable';
+    font-weight: 200 1000;
+    font-display: swap;
+    src: url('fonts/nunito-sans-latin-ext-wght-normal.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+1E00-1EFF;
+  }
+  @font-face {
+    font-family: 'Nunito Sans Variable';
+    font-weight: 200 1000;
+    font-display: swap;
+    src: url('fonts/nunito-sans-latin-wght-normal.woff2') format('woff2');
+  }
+  :root {
+    --bg: #edf0e8;
+    --bg-2: #e3e8dc;
+    --card: #fffefa;
+    --line: #dfe5d8;
+    --ink: #283f37;
+    --muted: #6f7d72;
+    --green: #5c7351;
+    --leaf: #8aa66d;
+    --orange: #e8783c;
+    --orange-soft: #fbeadd;
+    --shadow: 0 18px 40px rgba(40, 63, 55, .14);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 18px/1.6 'Nunito Sans Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--green); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  h1, h2, h3 { font-weight: 900; letter-spacing: -.03em; line-height: 1.05; }
+  .eyebrow { font-size: 13px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--green); }
+
+  /* Top bar */
+  header.top { padding: 18px 0; }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; font-weight: 900; font-size: 21px; letter-spacing: -.02em; }
+  .brand img { width: 42px; height: 42px; border-radius: 11px; }
+  .top nav { display: flex; gap: 22px; font-weight: 700; font-size: 16px; }
+  .top nav a { color: var(--muted); text-decoration: none; }
+  .top nav a:hover { color: var(--ink); }
+
+  /* Hero */
+  .hero { padding: 28px 0 40px; }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: center; }
+  .hero h1 { font-size: clamp(46px, 7.5vw, 84px); margin: 12px 0 16px; }
+  .hero h1 span { color: var(--orange); }
+  .hero p.lead { font-size: 20px; color: var(--muted); margin: 0 0 28px; max-width: 30em; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; padding: 0; list-style: none; }
+  .chips li { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-weight: 700; font-size: 15px; color: var(--green); }
+  .badges { display: flex; flex-wrap: wrap; gap: 12px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 14px;
+    background: var(--ink); color: #fffefa; text-decoration: none; font-weight: 800; font-size: 16px; line-height: 1.2;
+    transition: transform .15s;
+  }
+  .badge:hover { transform: translateY(-2px); }
+  .badge small { display: block; font-size: 11px; font-weight: 600; opacity: .75; }
+  .badge svg { width: 22px; height: 22px; fill: currentColor; flex: none; }
+  .hero-art { border-radius: 28px; overflow: hidden; box-shadow: var(--shadow); background: var(--card); }
+
+  /* Day loop */
+  .loop { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin: 0; padding: 0; list-style: none; counter-reset: step; }
+  .loop li { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px 14px; position: relative; }
+  .loop li::before {
+    counter-increment: step; content: counter(step);
+    display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--orange-soft); color: var(--orange); font-weight: 900; font-size: 14px; margin-bottom: 10px;
+  }
+  .loop b { display: block; font-size: 16px; line-height: 1.25; }
+  .loop span { display: block; font-size: 14px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+  .loop .time { color: var(--orange); font-weight: 800; }
+
+  section.block { padding: 80px 0; }
+  section.alt { background: var(--bg-2); }
+  h2 { font-size: clamp(36px, 5vw, 54px); margin: 10px 0 14px; }
+  .section-lead { color: var(--muted); margin: 0 0 40px; max-width: 40em; font-size: 19px; }
+
+  /* Feature rows */
+  .feature { display: grid; grid-template-columns: 1.2fr .8fr; gap: 56px; align-items: center; }
+  .feature + .feature { margin-top: 96px; }
+  .feature.flip .copy { order: 2; }
+  .phone { max-width: 300px; width: 100%; justify-self: center; border-radius: 34px; overflow: hidden; box-shadow: var(--shadow); border: 6px solid #fffefa; background: #fffefa; }
+  .feature h3 { font-size: clamp(30px, 4vw, 42px); margin: 8px 0 14px; }
+  .feature p { color: var(--muted); margin: 0 0 16px; }
+  .feature ul { margin: 0; padding: 0; list-style: none; }
+  .feature li { position: relative; padding-left: 30px; margin: 10px 0; }
+  .feature li::before {
+    content: ""; position: absolute; left: 0; top: .32em; width: 18px; height: 18px; border-radius: 50%; background: #dfe8d3;
+  }
+  .feature li::after {
+    content: ""; position: absolute; left: 6px; top: calc(.32em + 4px); width: 6px; height: 9px;
+    border: solid var(--green); border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+
+  /* Neighborhood banner */
+  .banner { position: relative; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow); }
+  .banner img { width: 100%; }
+  .banner .over {
+    position: absolute; left: 24px; bottom: 24px; right: 24px; max-width: 460px;
+    background: rgba(255, 254, 250, .94); border-radius: 20px; padding: 20px 22px;
+  }
+  .banner .over h3 { font-size: 28px; margin: 6px 0 8px; }
+  .banner .over p { margin: 0; color: var(--muted); font-size: 16px; }
+
+  /* Screens strip */
+  .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .strip figure { margin: 0; }
+  .strip .phone { max-width: 100%; }
+  .strip figcaption { margin-top: 14px; font-weight: 900; font-size: 20px; letter-spacing: -.01em; }
+  .strip figcaption span { display: block; font-weight: 500; font-size: 15px; color: var(--muted); letter-spacing: 0; margin-top: 2px; }
+
+  /* Pills */
+  .pills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .pill { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 20px; }
+  .pill b { display: block; font-size: 20px; font-weight: 900; letter-spacing: -.01em; margin-bottom: 4px; }
+  .pill span { color: var(--muted); font-size: 16px; }
+
+  .cta { text-align: center; }
+  .cta img { width: 96px; height: 96px; border-radius: 24px; margin: 0 auto 18px; box-shadow: var(--shadow); }
+  .cta .badges { justify-content: center; }
+
+  footer { padding: 40px 0 56px; border-top: 1px dashed #cfd8c5; color: var(--muted); font-size: 15px; }
+  footer .links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-bottom: 12px; font-weight: 800; font-size: 16px; }
+  footer p { margin: 6px 0; }
+
+  @media (max-width: 960px) {
+    .loop { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 860px) {
+    .hero .wrap, .feature, .feature.flip { grid-template-columns: 1fr; gap: 32px; }
+    .feature.flip .copy { order: 0; }
+    .phone { max-width: 280px; }
+    .strip { grid-template-columns: 1fr; gap: 40px; }
+    .strip .phone { max-width: 280px; margin: 0 auto; }
+    .strip figcaption { text-align: center; }
+    .pills { grid-template-columns: repeat(2, 1fr); }
+    section.block { padding: 60px 0; }
+    .top nav { display: none; }
+    .banner .over { position: static; max-width: none; border-radius: 0; }
+  }
+  @media (max-width: 520px) {
+    .loop { grid-template-columns: 1fr 1fr; }
+    .pills { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/icon.png" alt="" width="42" height="42">Cargo Simulator</a>
+    <nav aria-label="Sections">
+      <a href="#day">A day</a>
+      <a href="#grow">Grow</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Cozy management game</span>
+        <h1>Run a cozy <span>parcel branch</span></h1>
+        <p class="lead">The neighborhood is counting on you. Unload the morning truck, sort every parcel, serve the counter, send your couriers out — and turn a small branch into a busy one.</p>
+        <ul class="chips">
+          <li>Sort parcels</li>
+          <li>Serve the counter</li>
+          <li>Send couriers out</li>
+        </ul>
+        <div class="badges">
+          <a class="badge" href="https://apps.apple.com/us/app/cargo-simulator/id6822068783" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.72-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.41 1.2-2.47-.03-.01-2.3-.88-2.32-3.5zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
+            <span><small>Download on the</small>App Store</span>
+          </a>
+          <a class="badge" href="https://play.google.com/store/apps/details?id=com.tutenstein.cargosimulator" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 2.3c-.2.2-.3.6-.3 1v17.4c0 .4.1.8.3 1l9.7-9.7L4.2 2.3zm10.8 10.8 2.6 2.6-11.4 6.5c-.4.2-.8.2-1 .1l9.8-9.2zm0-2.2L5.2 1.7c.3-.1.6 0 1 .2l11.4 6.5-2.6 2.5zm3.6-1.9 3 1.7c.9.5.9 1.4 0 1.9l-3 1.7-2.8-2.7 2.8-2.6z"/></svg>
+            <span><small>Get it on</small>Google Play</span>
+          </a>
+        </div>
+      </div>
+      <div class="hero-art"><img src="img/branch.jpg" width="1280" height="853" alt="Isometric view of the parcel branch with shelves, a conveyor, the counter, a transfer truck and a courier motorbike"></div>
+    </div>
+  </section>
+
+  <section class="block" id="day">
+    <div class="wrap">
+      <span class="eyebrow">One day at the branch</span>
+      <h2>From the 08:30 truck to the 18:00 report</h2>
+      <p class="section-lead">Every day follows the same rhythm — but the parcels, the customers and the weather never quite repeat.</p>
+      <ol class="loop">
+        <li><b>Transfer truck</b><span><span class="time">08:30</span> — the day's parcels arrive</span></li>
+        <li><b>Clear the door</b><span>Someone has parked in the way again</span></li>
+        <li><b>Unload</b><span>Only what the shelves can hold</span></li>
+        <li><b>Sort</b><span>Standard, pickup, fragile or priority</span></li>
+        <li><b>Counter &amp; couriers</b><span>Serve the line, send the routes out</span></li>
+        <li><b>Day's balance</b><span><span class="time">18:00</span> — how did today go?</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap">
+      <div class="feature">
+        <div class="copy">
+          <span class="eyebrow">Sorting area</span>
+          <h3>Right parcel, right shelf, happy customer</h3>
+          <p>Drag each parcel by its label to the right bin — standard delivery, branch pickup, fragile or priority. Busy? Let your clerk sort a batch for you.</p>
+          <ul>
+            <li>Hands-on sorting that is always safe</li>
+            <li>Staff batches are faster to start, but a stressed clerk may drop a fragile parcel</li>
+            <li>Keep the shelves from overflowing before the next truck</li>
+          </ul>
+        </div>
+        <div class="phone"><img src="img/sorting.jpg" width="560" height="1216" alt="Sorting area with standard, pickup, fragile and priority bins" loading="lazy"></div>
+      </div>
+
+      <div class="feature flip">
+        <div class="copy">
+          <span class="eyebrow">Counter</span>
+          <h3>Every parcel has a story</h3>
+          <p>Customers queue up to send and collect parcels. Weigh the box, put the label on the right side, check the recipient's ID — and keep the line moving.</p>
+          <ul>
+            <li>Quick counter mini-games: scale, label and ID check</li>
+            <li>A cast of regulars, each waiting their turn</li>
+            <li>Upgrades like the auto scale speed things up</li>
+          </ul>
+        </div>
+        <div class="phone"><img src="img/counter.jpg" width="560" height="1216" alt="Counter screen serving a customer sending a fragile parcel" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="banner">
+        <img src="img/street.jpg" width="1280" height="853" alt="A sunny harbor street with colorful houses and the sea in the distance" loading="lazy">
+        <div class="over">
+          <span class="eyebrow">Out in the neighborhood</span>
+          <h3>Ride along with your couriers</h3>
+          <p>Pick a vehicle and a route, then follow the delivery live through the streets of a little harbor town.</p>
+        </div>
+      </div>
+
+      <div class="feature" style="margin-top: 80px;">
+        <div class="copy">
+          <span class="eyebrow">Delivery</span>
+          <h3>Ringing the bell, stop by stop</h3>
+          <p>Parcels belong to neighborhoods. Load your courier, choose how they ride, and watch them make every stop. Rain slows routes down; a good plan gets everyone home on time.</p>
+          <ul>
+            <li>Couriers on foot, e-bike and more as you grow</li>
+            <li>Five live street scenes</li>
+            <li>The “you weren't home” shortcut is always there — but customers remember</li>
+          </ul>
+        </div>
+        <div class="phone"><img src="img/delivery.jpg" width="560" height="1216" alt="Courier ringing the bell at an orange apartment building" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt" id="grow">
+    <div class="wrap">
+      <span class="eyebrow">Grow your branch</span>
+      <h2>Small upgrades, big relief</h2>
+      <p class="section-lead">Turn a neighborhood branch into a district hub. Invest in shelving, staff, vehicles and automation, take on contracts, and keep an eye on the numbers.</p>
+      <div class="strip">
+        <figure>
+          <div class="phone"><img src="img/home.jpg" width="560" height="1216" alt="Branch overview with cash, rating and tasks" loading="lazy"></div>
+          <figcaption>Your branch<span>Cash, rating, the line and what to do next.</span></figcaption>
+        </figure>
+        <figure>
+          <div class="phone"><img src="img/invest.jpg" width="560" height="1216" alt="Investment screen with growth, team, vehicle and automation upgrades" loading="lazy"></div>
+          <figcaption>28 investments<span>Four branch stages, contracts and loans.</span></figcaption>
+        </figure>
+        <figure>
+          <div class="phone"><img src="img/balance.jpg" width="560" height="1216" alt="Day's balance showing operating profit and costs" loading="lazy"></div>
+          <figcaption>Day's balance<span>Income, wages, rent and every penalty.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <span class="eyebrow">Made to be cozy</span>
+      <h2>Play at your own pace</h2>
+      <p class="section-lead">Time stops while you think in the counter and sorting screens, and you can speed the day up to 3× when things are calm.</p>
+      <div class="pills">
+        <div class="pill"><b>Rush Friday</b><span>Bigger trucks and faster walk-ins. Sundays are calm.</span></div>
+        <div class="pill"><b>Fully offline</b><span>No account, no sign-in. Play anywhere.</span></div>
+        <div class="pill"><b>Autosave</b><span>Pick up exactly where you left off.</span></div>
+        <div class="pill"><b>English &amp; Türkçe</b><span>Each language has its own town, crew and customers.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt cta">
+    <div class="wrap">
+      <img src="img/icon.png" alt="" width="96" height="96">
+      <h2>Open your branch today</h2>
+      <p class="section-lead" style="margin: 0 auto 28px;">Available on iPhone and Android.</p>
+      <div class="badges">
+        <a class="badge" href="https://apps.apple.com/us/app/cargo-simulator/id6822068783" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.72-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.41 1.2-2.47-.03-.01-2.3-.88-2.32-3.5zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
+          <span><small>Download on the</small>App Store</span>
+        </a>
+        <a class="badge" href="https://play.google.com/store/apps/details?id=com.tutenstein.cargosimulator" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 2.3c-.2.2-.3.6-.3 1v17.4c0 .4.1.8.3 1l9.7-9.7L4.2 2.3zm10.8 10.8 2.6 2.6-11.4 6.5c-.4.2-.8.2-1 .1l9.8-9.2zm0-2.2L5.2 1.7c.3-.1.6 0 1 .2l11.4 6.5-2.6 2.5zm3.6-1.9 3 1.7c.9.5.9 1.4 0 1.9l-3 1.7-2.8-2.7 2.8-2.6z"/></svg>
+          <span><small>Get it on</small>Google Play</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:metinozetle@gmail.com">metinozetle@gmail.com</a>
+    </div>
+    <p>© 2026 Salih Enes Metin</p>
+  </div>
+</footer>
+
+</body>
+</html>
