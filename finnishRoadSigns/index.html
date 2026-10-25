@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Teoriakoe FI – Finnish Driving Theory Test</title>
-<meta name="description" content="Prepare for the Finnish category B driving theory test: all 373 road signs, 989 practice questions with traffic images and a full mock exam – in English, Finnish or Swedish, fully offline.">
+<meta name="description" content="Prepare for the Finnish category B driving theory test: all 373 road signs, 989 practice questions with traffic images and a full mock exam – in English, Finnish or Swedish. Free to download, with Premium for everything.">
 <link rel="icon" type="image/png" href="img/icon.png">
 <link rel="apple-touch-icon" href="img/icon.png">
 <meta property="og:title" content="Teoriakoe FI – Finnish Driving Theory Test">
-<meta property="og:description" content="All 373 Finnish road signs, 989 practice questions and a full mock exam – in English, Finnish or Swedish, fully offline.">
+<meta property="og:description" content="All 373 Finnish road signs, 989 practice questions and a full mock exam – in English, Finnish or Swedish.">
 <meta property="og:image" content="https://tutenstein.github.io/finnishRoadSigns/img/home.jpg">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,7 +81,16 @@
   }
   .badge small { display: block; font-size: 11px; font-weight: 600; opacity: .75; }
   .badge svg { width: 22px; height: 22px; flex: none; fill: currentColor; }
-  .badge[aria-disabled="true"] { opacity: .9; cursor: default; }
+  a.badge { transition: transform .15s; }
+  a.badge:hover { transform: translateY(-2px); }
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .plan { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
+  .plan.premium { border: 2px solid var(--brand); }
+  .plan h3 { font-size: 22px; margin: 0 0 4px; font-weight: 800; }
+  .plan .price { color: var(--muted); font-size: 15px; font-weight: 600; margin: 0 0 14px; }
+  .plan ul { margin: 0; padding-left: 20px; }
+  .plan li { margin: 6px 0; }
+  .plan .fine { color: var(--muted); font-size: 14px; margin: 14px 0 0; }
   .soon { font-size: 14px; color: var(--muted); margin-top: 12px; }
   .hero-shot {
     background: linear-gradient(160deg, var(--brand), var(--brand-2));
@@ -134,6 +143,7 @@
     .hero { padding-top: 16px; }
     .hero-shot { max-width: 320px; }
     .stats, .privacy { grid-template-columns: repeat(2, 1fr); }
+    .plans { grid-template-columns: 1fr; }
     section.block { padding: 44px 0; }
   }
   @media (max-width: 420px) {
@@ -161,18 +171,18 @@
       <div>
         <span class="eyebrow" data-i18n="eyebrow">Finnish driving licence · Category B</span>
         <h1 data-i18n="h1">Pass the Finnish theory test with confidence</h1>
-        <p class="lead" data-i18n="lead">Learn all 373 Finnish road signs, practise with 989 questions and traffic images, and take a full mock exam – in English, Finnish or Swedish, completely offline.</p>
+        <p class="lead" data-i18n="lead">Learn all 373 Finnish road signs, practise with 989 questions and traffic images, and take a full mock exam – in English, Finnish or Swedish, with all content stored in the app.</p>
         <div class="badges">
-          <span class="badge" aria-disabled="true">
+          <a class="badge" href="https://apps.apple.com/app/id6821930495" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.72-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.41 1.2-2.47-.03-.01-2.3-.88-2.32-3.5zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
-            <span><small data-i18n="soonShort">Coming soon on the</small>App Store</span>
-          </span>
-          <span class="badge" aria-disabled="true">
+            <span><small data-i18n="dlApple">Download on the</small>App Store</span>
+          </a>
+          <a class="badge" href="https://play.google.com/store/apps/details?id=fi.roadsigns.finnish_road_signs" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 2.3c-.2.2-.3.6-.3 1v17.4c0 .4.1.8.3 1l9.7-9.7L4.2 2.3zm10.8 10.8 2.6 2.6-11.4 6.5c-.4.2-.8.2-1 .1l9.8-9.2zm0-2.2L5.2 1.7c.3-.1.6 0 1 .2l11.4 6.5-2.6 2.5zm3.6-1.9 3 1.7c.9.5.9 1.4 0 1.9l-3 1.7-2.8-2.7 2.8-2.6z"/></svg>
-            <span><small data-i18n="soonShort">Coming soon on</small>Google Play</span>
-          </span>
+            <span><small data-i18n="dlPlay">Get it on</small>Google Play</span>
+          </a>
         </div>
-        <p class="soon" data-i18n="free">Free · No account · No ads · No in-app purchases</p>
+        <p class="soon" data-i18n="free">Free to download · No account · Premium removes ads</p>
       </div>
       <div class="hero-shot"><img src="img/home.jpg" width="540" height="960" alt="Teoriakoe FI home screen"></div>
     </div>
@@ -209,7 +219,7 @@
       <div class="feature flip">
         <div class="copy">
           <h3 data-i18n="f2Title">989 practice questions with explanations</h3>
-          <p data-i18n="f2Text">Practice questions in the style of the theory test, from Autoliitto’s public theory test practice, used with permission.</p>
+          <p data-i18n="f2Text">Practice questions in the style of the theory test, written in Finnish and translated into English and Swedish.</p>
           <ul>
             <li data-i18n="f2a">289 rule questions, 126 hazard perception tasks and 574 picture tasks</li>
             <li data-i18n="f2b">1,247 traffic images – open them full screen and zoom in</li>
@@ -261,12 +271,44 @@
 
   <section class="block">
     <div class="wrap">
-      <h2 data-i18n="privTitle">Private by design</h2>
-      <p class="section-lead" data-i18n="privLead">The app makes no network requests and collects no data. Your progress stays on your device.</p>
+      <h2 data-i18n="planTitle">Free to start, Premium for everything</h2>
+      <p class="section-lead" data-i18n="planLead">Download the app for free and learn the road signs. When you are ready for the exam, Premium unlocks every question and the mock exam.</p>
+      <div class="plans">
+        <div class="plan">
+          <h3 data-i18n="freeTitle">Free</h3>
+          <p class="price" data-i18n="freePrice">With ads</p>
+          <ul>
+            <li data-i18n="fr1">All 373 road signs</li>
+            <li data-i18n="fr2">Theory summaries and practice on the basic traffic rules</li>
+            <li data-i18n="fr3">A daily quick quiz, up to three more with short ads</li>
+            <li data-i18n="fr4">A 10-card flashcard deck</li>
+            <li data-i18n="fr5">5 Play &amp; Learn situations a day, 5 more with a short ad</li>
+          </ul>
+        </div>
+        <div class="plan premium">
+          <h3 data-i18n="premTitle">Teoriakoe FI Premium</h3>
+          <p class="price" data-i18n="premPrice">Weekly or monthly subscription · No ads</p>
+          <ul>
+            <li data-i18n="pr1">The mock exam</li>
+            <li data-i18n="pr2">All 989 practice questions</li>
+            <li data-i18n="pr3">Practice by topic and sign family, and weak spots</li>
+            <li data-i18n="pr4">The whole Play &amp; Learn city</li>
+            <li data-i18n="pr5">Detailed progress</li>
+          </ul>
+          <p class="fine" data-i18n="premFine">Renews automatically until you cancel it in your App Store or Google Play account.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap">
+      <h2 data-i18n="privTitle">Your privacy</h2>
+      <p class="section-lead" data-i18n="privLead">No account and no analytics – your progress stays on your device. Ads in the free version come from Google AdMob and are personalised only with your consent.</p>
       <div class="privacy">
-        <div class="pill"><b data-i18n="p1">Fully offline</b><span data-i18n="p1t">Signs, questions and images are all inside the app.</span></div>
+        <div class="pill"><b data-i18n="p1">Content in the app</b><span data-i18n="p1t">Signs, questions and images are stored in the app – study without a connection.</span></div>
         <div class="pill"><b data-i18n="p2">No account</b><span data-i18n="p2t">Open the app and start learning.</span></div>
-        <div class="pill"><b data-i18n="p3">No ads, no tracking</b><span data-i18n="p3t">No analytics and no third-party SDKs.</span></div>
+        <div class="pill"><b data-i18n="p3">Your choice on ads</b><span data-i18n="p3t">Change it any time in Settings → Privacy choices.</span></div>
         <div class="pill"><b data-i18n="p4">Light &amp; dark mode</b><span data-i18n="p4t">Comfortable to study day or night.</span></div>
       </div>
     </div>
@@ -281,7 +323,6 @@
       <a href="mailto:metinozetle@gmail.com">metinozetle@gmail.com</a>
     </div>
     <p data-i18n="src1">Road sign data: sign images published by Väylävirasto (Finnish Transport Infrastructure Agency) and the Road Traffic Act 729/2018.</p>
-    <p data-i18n="src2">Practice questions and images: Autoliiton Ajokoulu (Autoliitto ry), used with permission.</p>
     <p data-i18n="disc">Teoriakoe FI is an independent app. It is not affiliated with or endorsed by Traficom, Ajovarma or the Finnish government. The practice questions are not the actual exam questions.</p>
     <p>© 2026 Salih Enes Metin</p>
   </div>
@@ -294,9 +335,9 @@
       title: "Teoriakoe FI – Ajokortin teoriakoe",
       eyebrow: "Ajokortti · B-luokka",
       h1: "Läpäise teoriakoe varmemmin",
-      lead: "Opettele kaikki 373 liikennemerkkiä, harjoittele 989 tehtävällä ja liikennekuvilla ja tee täysi harjoituskoe – suomeksi, ruotsiksi tai englanniksi ja kokonaan ilman verkkoyhteyttä.",
-      soonShort: "Tulossa pian",
-      free: "Ilmainen · Ei käyttäjätiliä · Ei mainoksia · Ei sovelluksen sisäisiä ostoja",
+      lead: "Opettele kaikki 373 liikennemerkkiä, harjoittele 989 tehtävällä ja liikennekuvilla ja tee täysi harjoituskoe – suomeksi, ruotsiksi tai englanniksi. Kaikki sisältö on tallennettu sovellukseen.",
+      dlApple: "Lataa", dlPlay: "Lataa",
+      free: "Ilmainen sovellus · Ei käyttäjätiliä · Premium poistaa mainokset",
       statSigns: "liikennemerkkiä", statQuestions: "harjoitustehtävää", statImages: "liikennekuvaa", statLangs: "kieltä",
       featTitle: "Kaikki teoriakokeeseen yhdessä sovelluksessa",
       featLead: "Tarkoitettu kaikille, jotka suorittavat ajokorttia Suomessa – myös niille, jotka opettelevat suomalaisia liikennesääntöjä uudella kielellä. Kielen voi vaihtaa milloin tahansa, ja käännetyistä kysymyksistä näet myös alkuperäisen suomenkielisen tekstin.",
@@ -307,7 +348,7 @@
       f1c: "Jokainen osio hyväksytään tai hylätään erikseen",
       f1d: "Kokeen jälkeen voit käydä kaikki vastaukset läpi",
       f2Title: "989 harjoitustehtävää selityksineen",
-      f2Text: "Teoriakokeen tyylisiä harjoituskysymyksiä Autoliiton julkisesta teoriakoeharjoittelusta, käytetty luvalla.",
+      f2Text: "Teoriakokeen tyylisiä harjoituskysymyksiä, alun perin suomeksi ja käännettyinä englanniksi ja ruotsiksi.",
       f2a: "289 sääntökysymystä, 126 riskientunnistustehtävää ja 574 kuvatehtävää",
       f2b: "1 247 liikennekuvaa – avaa kuva koko näytölle ja suurenna",
       f2c: "14 teoria-aihetta, opiskeluyhteenvedot ja 112 selitettyä kysymystä",
@@ -323,24 +364,30 @@
       f4b: "Liikennevalot, etuajo-oikeus, jalankulkijat, pyöräilijät, kaistat, pysäköinti ja paljon muuta",
       progTitle: "Seuraa edistymistäsi",
       progLead: "XP-pisteet, tasot ja päiväputki pitävät motivaation yllä. Näet osumatarkkuutesi ja osaamisesi merkkiryhmittäin sekä viimeisimmät tuloksesi.",
-      privTitle: "Yksityisyys ensin",
-      privLead: "Sovellus ei käytä verkkoyhteyttä eikä kerää mitään tietoja. Edistymisesi tallentuu vain omaan laitteeseesi.",
-      p1: "Toimii ilman verkkoa", p1t: "Merkit, kysymykset ja kuvat ovat sovelluksen sisällä.",
+      privTitle: "Yksityisyytesi",
+      privLead: "Ei käyttäjätiliä eikä analytiikkaa – edistymisesi pysyy laitteessasi. Ilmaisversion mainokset tarjoaa Google AdMob, ja niitä kohdennetaan vain suostumuksellasi.",
+      planTitle: "Aloita ilmaiseksi, Premiumilla kaikki",
+      planLead: "Lataa sovellus ilmaiseksi ja opettele liikennemerkit. Kun olet valmis kokeeseen, Premium avaa kaikki tehtävät ja harjoituskokeen.",
+      freeTitle: "Ilmainen", freePrice: "Mainosten kera",
+      fr1: "Kaikki 373 liikennemerkkiä", fr2: "Teorian tiivistelmät ja perussääntöjen harjoittelu", fr3: "Pikatesti päivässä, lyhyillä mainoksilla jopa kolme lisää", fr4: "10 kortin harjoituspakka", fr5: "5 Pelaa ja opi -tilannetta päivässä, lyhyellä mainoksella 5 lisää",
+      premTitle: "Teoriakoe FI Premium", premPrice: "Viikko- tai kuukausitilaus · Ei mainoksia",
+      pr1: "Harjoituskoe", pr2: "Kaikki 989 harjoitustehtävää", pr3: "Harjoittelu aiheittain ja merkkiryhmittäin sekä heikot kohdat", pr4: "Koko Pelaa ja opi -kaupunki", pr5: "Tarkka edistyminen",
+      premFine: "Tilaus uusiutuu automaattisesti, kunnes perut sen App Storen tai Google Playn tililläsi.",
+      p1: "Sisältö sovelluksessa", p1t: "Merkit, kysymykset ja kuvat on tallennettu sovellukseen – opiskele ilman verkkoyhteyttä.",
       p2: "Ei käyttäjätiliä", p2t: "Avaa sovellus ja aloita opiskelu.",
-      p3: "Ei mainoksia eikä seurantaa", p3t: "Ei analytiikkaa eikä kolmansien osapuolten SDK:ita.",
+      p3: "Sinä päätät mainoksista", p3t: "Muuta valintaa milloin tahansa: Asetukset → Tietosuojavalinnat.",
       p4: "Vaalea ja tumma teema", p4t: "Mukava opiskella päivällä ja illalla.",
       support: "Tuki", privacy: "Tietosuojakäytäntö",
       src1: "Liikennemerkkitiedot: Väyläviraston julkaisemat merkkikuvat ja tieliikennelaki 729/2018.",
-      src2: "Harjoituskysymykset ja kuvat: Autoliiton Ajokoulu (Autoliitto ry), käytetty luvalla.",
       disc: "Teoriakoe FI on itsenäinen sovellus. Se ei ole sidoksissa Traficomiin, Ajovarmaan tai Suomen valtioon, eivätkä ne ole hyväksyneet sitä. Harjoituskysymykset eivät ole varsinaisen teoriakokeen kysymyksiä."
     },
     sv: {
       title: "Teoriakoe FI – Teoriprov för körkort",
       eyebrow: "Körkort i Finland · Kategori B",
       h1: "Klara teoriprovet med större säkerhet",
-      lead: "Lär dig alla 373 vägmärken, öva med 989 uppgifter och trafikbilder och gör ett fullständigt provtest – på svenska, finska eller engelska, helt utan nätförbindelse.",
-      soonShort: "Kommer snart på",
-      free: "Gratis · Inget konto · Inga annonser · Inga köp i appen",
+      lead: "Lär dig alla 373 vägmärken, öva med 989 uppgifter och trafikbilder och gör ett fullständigt provtest – på svenska, finska eller engelska. Allt innehåll finns i appen.",
+      dlApple: "Hämta i", dlPlay: "Hämta på",
+      free: "Gratis att ladda ner · Inget konto · Premium tar bort annonserna",
       statSigns: "vägmärken", statQuestions: "övningsuppgifter", statImages: "trafikbilder", statLangs: "språk",
       featTitle: "Allt för teoriprovet i en app",
       featLead: "Gjord för alla som tar körkort i Finland – också för dig som lär dig de finländska trafikreglerna på ett nytt språk. Byt språk när som helst och visa den finska originaltexten för översatta frågor.",
@@ -351,7 +398,7 @@
       f1c: "Varje del godkänns eller underkänns för sig",
       f1d: "Gå igenom alla svar efteråt",
       f2Title: "989 övningsuppgifter med förklaringar",
-      f2Text: "Övningsfrågor i teoriprovets stil, från Autoliittos offentliga övningsprov, används med tillstånd.",
+      f2Text: "Övningsfrågor i teoriprovets stil, skrivna på finska och översatta till svenska och engelska.",
       f2a: "289 regelfrågor, 126 riskidentifieringsuppgifter och 574 bilduppgifter",
       f2b: "1 247 trafikbilder – öppna dem i helskärm och zooma in",
       f2c: "14 teoriavsnitt med sammanfattningar och 112 förklarade frågor",
@@ -367,15 +414,21 @@
       f4b: "Trafiksignaler, förkörsrätt, gående, cyklister, körfält, parkering med mera",
       progTitle: "Följ dina framsteg",
       progLead: "XP, nivåer och dagar i rad håller motivationen uppe. Se din träffsäkerhet och behärskning per märkesgrupp och dina senaste resultat.",
-      privTitle: "Integritet från början",
-      privLead: "Appen använder inte nätet och samlar inte in några uppgifter. Dina framsteg sparas bara på din egen enhet.",
-      p1: "Helt offline", p1t: "Märken, frågor och bilder finns i appen.",
+      privTitle: "Din integritet",
+      privLead: "Inget konto och ingen analys – dina framsteg stannar på din enhet. Annonserna i gratisversionen kommer från Google AdMob och anpassas bara med ditt samtycke.",
+      planTitle: "Börja gratis, allt med Premium",
+      planLead: "Ladda ner appen gratis och lär dig vägmärkena. När du är redo för provet låser Premium upp alla frågor och provtestet.",
+      freeTitle: "Gratis", freePrice: "Med annonser",
+      fr1: "Alla 373 vägmärken", fr2: "Teorisammanfattningar och övning på de grundläggande trafikreglerna", fr3: "Ett snabbtest om dagen, upp till tre till med korta annonser", fr4: "En lek med 10 kort", fr5: "5 situationer i Spela och lär om dagen, 5 till med en kort annons",
+      premTitle: "Teoriakoe FI Premium", premPrice: "Vecko- eller månadsprenumeration · Inga annonser",
+      pr1: "Provtestet", pr2: "Alla 989 övningsfrågor", pr3: "Övning per ämne och märkesgrupp samt svaga punkter", pr4: "Hela Spela och lär-staden", pr5: "Detaljerade framsteg",
+      premFine: "Prenumerationen förnyas automatiskt tills du säger upp den i ditt App Store- eller Google Play-konto.",
+      p1: "Innehållet i appen", p1t: "Märken, frågor och bilder finns i appen – plugga utan nätförbindelse.",
       p2: "Inget konto", p2t: "Öppna appen och börja lära dig.",
-      p3: "Inga annonser, ingen spårning", p3t: "Ingen analys och inga SDK:er från tredje part.",
+      p3: "Du väljer om annonser", p3t: "Ändra när som helst under Inställningar → Integritetsval.",
       p4: "Ljust och mörkt läge", p4t: "Bekvämt att plugga dag som natt.",
       support: "Support", privacy: "Integritetspolicy",
       src1: "Uppgifter om vägmärken: märkesbilder publicerade av Trafikledsverket (Väylävirasto) och vägtrafiklagen 729/2018.",
-      src2: "Övningsfrågor och bilder: Autoliiton Ajokoulu (Autoliitto ry), används med tillstånd.",
       disc: "Teoriakoe FI är en fristående app. Den är inte knuten till eller godkänd av Traficom, Ajovarma eller finska staten. Övningsfrågorna är inte de egentliga provfrågorna."
     }
   };
@@ -385,17 +438,13 @@
   nodes.forEach(function (n) { en[n.getAttribute("data-i18n")] = n.textContent; });
   T.en = en;
 
-  // The Google Play badge reads "Coming soon on"; the App Store one "Coming soon on the".
-  var soonEn = ["Coming soon on the", "Coming soon on"];
 
   function apply(lang) {
     var d = T[lang] || T.en;
     document.documentElement.lang = lang;
     document.title = d.title;
-    var i = 0;
     nodes.forEach(function (n) {
       var k = n.getAttribute("data-i18n");
-      if (k === "soonShort") { n.textContent = lang === "en" ? soonEn[i++] : d.soonShort; return; }
       if (d[k]) n.textContent = d[k];
     });
     document.querySelectorAll("nav.lang button").forEach(function (b) {
